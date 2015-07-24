@@ -1,2 +1,2 @@
 # exdashboard
-Displays UI for idea and experiment cycle that is entered into a Google spreadsheet
+Loads data from a Google spreadsheet and displays a dashboard UI for experiment iteration
