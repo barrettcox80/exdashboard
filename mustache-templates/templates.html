@@ -1,0 +1,143 @@
+<script id="ideaTableCell" type="text/template">
+	<td class="{{emptyclass}}">
+		<a href="{{detailpageurl}}?idea={{bigideaparam}}">
+			<h3>{{bigidea}}</h3>
+			<p>{{{bigbettruncated}}}</p> <!-- Triple curly braces to output HTML -->
+		</a>
+	</td>
+</script>
+
+
+<script id="experimentTableCell" type="text/template">
+	<td class="{{stagecssclass}}">
+		<a href="{{detailpageurl}}?ex={{experimentparam}}">
+			<h3>{{experimentcodename}}</h3>
+			<p>{{{mvptruncated}}}</p> <!-- Triple curly braces to output HTML -->
+			<h4 class="ed-stage">Stage {{stagenum}}: {{stage}}</h4>
+			<h4 class="ed-next">What&#39;s Next: {{nextsteps}}</h4>
+			<div class="{{helpclass}}" data-after="Help needed"></div>
+		</a>
+	</td>
+</script>
+
+
+<script id="ideaTable" type="text/template">
+	<table class="ed-table-details">
+		<tr>
+			<th scope="row">Created Date</th>
+			<td>{{createddate}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Idea</th>
+			<td>{{idea}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Outcome</th>
+			<td>{{outcome}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Big Bet Hypothesis<br><span class="subheading">(Idea + Outcome)</span></th>
+			<td>{{bigbet}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Assumptions</th>
+			<td>{{assumptions}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Questions</th>
+			<td>{{questions}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Folder</th>
+			<td>{{{folderurl}}}</td> <!-- Triple curly braces to output HTML -->
+		</tr>
+		<tr>
+			<th scope="row">Strategy</th>
+			<td>{{strategy}}</td>
+		</tr>								
+	</table>
+</script>
+
+<script id="experimentTable" type="text/template">
+	<table class="ed-table-details">
+		<tr>
+			<th scope="row">Stage</th>
+			<td>{{stage}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Start Date</th>
+			<td>{{startdate}}</td>
+		</tr>
+		<tr>
+			<th scope="row">End Date</th>
+			<td>{{enddate}}</td>
+		</tr>
+		<tr>
+			<th scope="row">What&#39;s Next?</th>
+			<td>{{nextsteps}}</td>
+		</tr>
+		<tr>
+			<th scope="row">MVP</th>
+			<td>{{mvp}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Hypothesis</th>
+			<td>{{hypothesis}}</td>
+		</tr>
+		<tr>
+			<th scope="row">MVP Design</th>
+			<td>{{mvpdesign}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Help Needed</th>
+			<td>{{helpneeded}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Key Learnings</th>
+			<td>{{keylearnings}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Documents</th>
+			<td>{{{documents}}}</td> <!-- Triple curly braces to output HTML -->
+		</tr>
+		<tr>
+			<th scope="row">Folder</th>
+			<td>{{{folderurl}}}</td> <!-- Triple curly braces to output HTML -->
+		</tr>
+		<tr>
+			<th scope="row">Blog Posts</th>
+			<td>{{{blogposts}}}</td> <!-- Triple curly braces to output HTML -->
+		</tr>
+		<tr>
+			<th scope="row">Team</th>
+			<td>{{team}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Google Group</th>
+			<td class="forced-wrap">{{googlegroup}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Contact</th>
+			<td>{{contact}}</td>
+		</tr>
+	</table>
+</script>
+
+<script id="experimentWidgetTable" type="text/template">
+	<table>
+		<thead>
+			<tr>
+				<th class="ed-widget-bg-blue">Experiments Lifetime Total</th>
+				<th class="ed-widget-bg-green">Ideas Being Explored Currently</th>
+				<th class="ed-widget-bg-orange">Help Requests</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="ed-widget-bg-blue">{{experimentcount}}</td>
+				<td class="ed-widget-bg-green">{{activeideacount}}</td>
+				<td class="ed-widget-bg-orange">{{helpneededcount}}</td>
+			</tr>
+		</tbody>
+	</table>
+</script>
