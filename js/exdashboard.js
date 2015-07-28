@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------------------------------------
     
-    Experiment Dashboard JS, v0.5
+    Experiment Dashboard JS, v0.6
 
 	Authors     : Barrett Cox, http://barrettcox.com
 	              Amy Wu, http://duende.us
