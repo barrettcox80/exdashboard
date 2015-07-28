@@ -5,8 +5,8 @@
 	Authors     : Barrett Cox, http://barrettcox.com
 	              Amy Wu, http://duende.us
 
-	Description : Displays UI for idea and experiment cycle that is
-	              entered into a Google spreadsheet
+	Description : Loads data from a Google spreadsheet and displays
+	              a dashboard UI for experiment iteration
 
 ---------------------------------------------------------------------------------------------------*/
 
@@ -542,10 +542,10 @@
 							imageurl: this.gsx$imageurl.$t,
 						    createddate: this.gsx$createddate.$t,
 						    idea: this.gsx$idea.$t,
-						    outcome: this.gsx$outcome.$t,
-						    bigbet: this.gsx$bigbet.$t,
-						    assumptions: this.gsx$assumptions.$t,
-						    questions: this.gsx$questions.$t,
+						    outcome: thisExDashboard.insertBreaks(this.gsx$outcome.$t, false),
+						    bigbet: thisExDashboard.insertBreaks(this.gsx$bigbet.$t, false),
+						    assumptions: thisExDashboard.insertBreaks(this.gsx$assumptions.$t, false),
+						    questions: thisExDashboard.insertBreaks(this.gsx$questions.$t, false),
 						    folderurl: folderLink,
 						    strategy: this.gsx$strategy.$t,
 						};
@@ -622,12 +622,12 @@
 						    stage: this.gsx$stage.$t,
 						    startdate: this.gsx$startdate.$t,
 						    enddate: this.gsx$enddate.$t,
-						    nextsteps: this.gsx$nextsteps.$t,
-						    mvp: this.gsx$mvp.$t,
-						    hypothesis: this.gsx$hypothesis.$t,
-						    mvpdesign: this.gsx$mvpdesign.$t,
-						    helpneeded: this.gsx$helpneeded.$t,
-						    keylearnings: this.gsx$keylearnings.$t,
+						    nextsteps: thisExDashboard.insertBreaks(this.gsx$nextsteps.$t, false),
+						    mvp: thisExDashboard.insertBreaks(this.gsx$mvp.$t, false),
+						    hypothesis: thisExDashboard.insertBreaks(this.gsx$hypothesis.$t, false),
+						    mvpdesign: thisExDashboard.insertBreaks(this.gsx$mvpdesign.$t, false),
+						    helpneeded: thisExDashboard.insertBreaks(this.gsx$helpneeded.$t, false),
+						    keylearnings: thisExDashboard.insertBreaks(this.gsx$keylearnings.$t, false),
 						    folderurl: folderLink,
 						    documents: documentList,
 						    blogposts: blogList,
@@ -666,6 +666,15 @@
 		}
 		/*- insertExperiment --------------------------*/
 
+
+		/*-----------------------------------------------
+		    Returns string with line breaks
+		    	replaced with break tags
+		-----------------------------------------------*/
+		this.insertBreaks = function (str, is_xhtml) {   
+		    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+		    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+		}
 
 		// Grab all the data from the spreadsheets
 		this.initializeDashboard();
