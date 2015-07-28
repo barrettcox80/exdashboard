@@ -10,7 +10,15 @@
 
 ---------------------------------------------------------------------------------------------------*/
 
+
 ;(function ( $ ) {
+
+	/* Find the absolute path to the JS directory */
+	var scripts = document.getElementsByTagName("script");
+	var scriptSrc = scripts[scripts.length-1].src;
+	var dir = scriptSrc.substring(0, scriptSrc.lastIndexOf('/'));
+
+	console.log(dir);
 
 	$.exDashboard = function (sheetID, experimentSheetPos, ideaSheetPos) {
 
@@ -40,7 +48,7 @@
 		this.ideaPageUrl = 'idea.html';
 
 		// The url for the Mustache.js templates
-		this.templateURL = 'js/mustache-templates/templates.html';
+		this.templateURL = dir + '/mustache-templates/templates.html';
 		
 
 		/*-----------------------------------------------
@@ -335,8 +343,6 @@
 				    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
 				  }
 				
-				
-				//console.log('Templates Loaded');
 				// Templates have loaded. Now...
 
 				// Append the table
