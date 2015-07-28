@@ -36,11 +36,11 @@
 		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + experimentSheetPos + '/public/values?alt=json';
 		
 		// Experiment and Idea detail page urls
-		this.experimentPageUrl = '/experiment';
-		this.ideaPageUrl = '/idea';
+		this.experimentPageUrl = 'experiment.html';
+		this.ideaPageUrl = 'idea.html';
 
 		// The url for the Mustache.js templates
-		this.templateURL = '/wp-content/themes/futureforward-national/exdashboard/mustache-templates/templates.html';
+		this.templateURL = 'js/mustache-templates/templates.html';
 		
 
 		/*-----------------------------------------------
@@ -304,6 +304,7 @@
 		    Creates the Dashboard table
 		-----------------------------------------------*/
 		this.makeTable = function (elementID) {
+
 			var items     = [];
 			var row       = '';
 			var cell      = '';
@@ -326,8 +327,16 @@
 			$( '<div/>', { 'id': 'mustache-templates'})
 				.appendTo( 'body' )
 				.css('visibility','hidden')
-				.load(thisExDashboard.templateURL, function() {
+				//.load(thisExDashboard.templateURL, function() {
+
+				.load( thisExDashboard.templateURL, function( response, status, xhr ) {
+				  if ( status == "error" ) {
+				    var msg = "Sorry but there was an error: ";
+				    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+				  }
 				
+				
+				//console.log('Templates Loaded');
 				// Templates have loaded. Now...
 
 				// Append the table

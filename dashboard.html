@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Experiment Dashboard</title>
+
+	<link rel="stylesheet" type="text/css" href="../css/exdashboard.css">
+
+</head>
+<body>
+
+<div id="error"></div>
+<div id="ed-dashboard-table-container"></div> 
+
+
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/mustache.min.js"></script>
+<script type="text/javascript" src="js/exdashboard.js"></script>
+
+<script type="text/javascript">
+
+(function($){
+
+	$( document ).ready(function() {
+
+		// Create a new dashboard object
+		var dashboard = new $.exDashboard('1uFy6syzPx5olZ18cRowSGuw4RbFforfgYJ0UfkRnbt0', '2', '1');
+
+		// Assemble the table and inject it into the DOM
+		dashboard.makeTable('#ed-dashboard-table-container');
+
+	}); /*-- Ready --*/
+
+})(jQuery); /*-- jQuery --*/
+
+</script>
+
+</body>
+</html>
