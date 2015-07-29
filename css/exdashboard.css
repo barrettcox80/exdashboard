@@ -55,14 +55,14 @@
 --------------------------------*/
 .ed-table-dashboard tr > th,
 .ed-table-dashboard tr > td > a {
-  width : 260px;
-  height : 150px;
+  width : 210px;
+  height : 121px;
 }
 .ed-table-dashboard tr > th:first-child,
 .ed-table-dashboard tr > td.ed-td-idea-full > a,
 .ed-table-dashboard tr > td.ed-td-idea-empty > a {
-  width : 295px;
-  height : 150px;
+  width : 234px;
+  height : 119px;
 }
 .ed-table-dashboard tr > th,
 .ed-table-dashboard tr > th:first-child {
@@ -93,7 +93,7 @@
 }
 .ed-table-dashboard tr > td.ed-td-idea-full > a,
 .ed-table-dashboard tr > td.ed-td-idea-empty > a {
-  padding-right : 35px;
+  padding-right : 30px;
 } 
 
 .ed-table-dashboard tr > td > a:active,
@@ -134,16 +134,26 @@
 /*--------------------------------
     1.8 - Hide/Show
 --------------------------------*/
+/*
 .ed-table-dashboard tr > td > a > p { 
   display : none;
 }
+*/
 /* Only show the idea paragraphs */
+/*
 .ed-table-dashboard tr > td.ed-td-idea-full > a > p,
 .ed-table-dashboard tr > td.ed-td-idea-empty > a > p {
   display : block;
 }
+*/
 /* Hide What's Next on the completed experiments */
+/*
 .ed-table-dashboard tr > td.ed-td-stage-complete > a > h4.ed-next {
+  display : none;
+}
+*/
+/* Hide all What's Next for mobile */
+.ed-table-dashboard tr > td > a > h4.ed-next {
   display : none;
 }
 /*- End - 1.8 ------------------*/
@@ -427,6 +437,16 @@ a#ed-dashboard-feedback:hover:after {
   .ed-table-dashboard tr > td > a > p { 
     display : block; 
   }
+  
+  /* Show What's Next on all experiments */
+  .ed-table-dashboard tr > td > a > h4.ed-next {
+    display : block;
+  }
+  /* Hide What's Next on the completed experiments */
+  .ed-table-dashboard tr > td.ed-td-stage-complete > a > h4.ed-next {
+    display : none;
+  }
+
   /*- End - 3.8 ------------------*/
 
 

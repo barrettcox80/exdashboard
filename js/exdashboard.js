@@ -71,7 +71,7 @@
 						// Replace spaces in experiment name with hyphens
 						// for the url parameters
 						var bigideaParam = thisExDashboard.paramString(this.gsx$bigidea.$t);
-						var bigBetTruncated = thisExDashboard.trimText(this.gsx$bigbet.$t, 110);
+						var bigBetTruncated = thisExDashboard.trimText(this.gsx$bigbet.$t, 50);
 
 						ideaVars = {
 						    bigidea: this.gsx$bigidea.$t,
@@ -130,7 +130,7 @@
 						var stageNum = '';
 						var helpClass = 'ed-help';
 						var endDate = this.gsx$enddate.$t;
-						var mvpTruncated = thisExDashboard.trimText(this.gsx$mvp.$t, 110);	
+						var mvpTruncated = thisExDashboard.trimText(this.gsx$mvp.$t, 50);	
 
 						// CSS class and number for stage
 						if (this.gsx$stage.$t == 'Design') {
@@ -214,7 +214,7 @@
 			
 			// If not empty string, trim text and add a right arrow
 			if (trimmed != '') {
-				trimmed = $.trim(paragraphString).substring(0, charLimit) + '&nbsp;&rarr;';
+				trimmed = $.trim(paragraphString).substring(0, charLimit) + '&#8230;&nbsp;&rarr;';
 			}
 			
 			return trimmed;
