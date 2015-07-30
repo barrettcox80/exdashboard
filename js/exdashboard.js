@@ -214,7 +214,14 @@
 			
 			// If not empty string, trim text and add a right arrow
 			if (trimmed != '') {
-				trimmed = $.trim(paragraphString).substring(0, charLimit) + '&#8230;&nbsp;&rarr;';
+				// Trim to the charLimit
+				trimmed = $.trim(paragraphString).substring(0, charLimit);
+				
+				// Re-trim if we are in the middle of a word
+				trimmed = trimmed.substr(0, Math.min(trimmed.length, trimmed.lastIndexOf(" ")));
+
+				// Add the ellipsis and right arrow
+				trimmed += '&#8230;&nbsp;&rarr;';
 			}
 			
 			return trimmed;
