@@ -86,16 +86,18 @@
   -o-transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
   transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
 }
-
 .ed-table-dashboard tr > td > a > h3 {
   margin-top : 0;
   margin-bottom : 0;
 }
+.ed-table-dashboard tr > td.ed-td-idea-full > a > h3,
+.ed-table-dashboard tr > td.ed-td-idea-empty > a > h3 {
+  padding-right : 10px;
+} 
 .ed-table-dashboard tr > td.ed-td-idea-full > a,
 .ed-table-dashboard tr > td.ed-td-idea-empty > a {
   padding-right : 30px;
 } 
-
 .ed-table-dashboard tr > td > a:active,
 .ed-table-dashboard tr > td > a:hover,
 .ed-table-dashboard tr > td > a:visited {
