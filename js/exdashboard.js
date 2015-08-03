@@ -130,6 +130,7 @@
 						var stageNum = '';
 						var helpClass = 'ed-help';
 						var endDate = this.gsx$enddate.$t;
+						var endDateObject = thisExDashboard.parseDate(endDate);
 						var mvpTruncated = thisExDashboard.trimText(this.gsx$mvp.$t, 50);
 						var today = new Date();
 
@@ -146,10 +147,10 @@
 							stageNum   = '3';
 						}
 
-						// If an endDate exists, and endDate is today or earlier,
+						// If an endDate is valid, and endDate is today or earlier,
 						// then use a different CSS class
-						if (endDate != '') {
-							if ( thisExDashboard.parseDate(endDate) <= today ) {
+						if (thisExDashboard.isValidDate(endDateObject) != false) {
+							if (thisExDashboard.parseDate(endDate) <= today) {
 								stageClass = 'ed-td-stage-complete';
 							}
 						}
@@ -256,6 +257,17 @@
 		}
 		/*- parseDate ---------------------------------*/
 
+		/*-----------------------------------------------
+		    Returns true if date is valid
+		    Source : http://solvedstack.com/questions/detecting-an-invalid-date-date-instance-in-javascript
+		-----------------------------------------------*/
+
+		this.isValidDate = function (d) {
+		  if ( Object.prototype.toString.call(d) !== "[object Date]" )
+		    return false;
+		  return !isNaN(d.getTime());
+		}
+		/*- isValidDate -------------------------------*/
 
 		/*-----------------------------------------------
 		    Creates idea/experiment(s) rows
