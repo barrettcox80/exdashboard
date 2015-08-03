@@ -257,6 +257,7 @@
 		}
 		/*- parseDate ---------------------------------*/
 
+
 		/*-----------------------------------------------
 		    Returns true if date is valid
 		    Source : http://solvedstack.com/questions/detecting-an-invalid-date-date-instance-in-javascript
@@ -267,6 +268,7 @@
 		  return !isNaN(d.getTime());
 		}
 		/*- isValidDate -------------------------------*/
+
 
 		/*-----------------------------------------------
 		    Creates idea/experiment(s) rows
