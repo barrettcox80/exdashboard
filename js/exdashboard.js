@@ -18,8 +18,6 @@
 	var scriptSrc = scripts[scripts.length-1].src;
 	var dir = scriptSrc.substring(0, scriptSrc.lastIndexOf('/'));
 
-	console.log(dir);
-
 	$.exDashboard = function (params) {
 
 		// Store a reference to this object prototype to
@@ -132,7 +130,8 @@
 						var stageNum = '';
 						var helpClass = 'ed-help';
 						var endDate = this.gsx$enddate.$t;
-						var mvpTruncated = thisExDashboard.trimText(this.gsx$mvp.$t, 50);	
+						var mvpTruncated = thisExDashboard.trimText(this.gsx$mvp.$t, 50);
+						var today = new Date();
 
 						// CSS class and number for stage
 						if (this.gsx$stage.$t == 'Design') {
@@ -147,9 +146,12 @@
 							stageNum   = '3';
 						}
 
-						// If an endDate exists, use a different CSS class
+						// If an endDate exists, and endDate is today or earlier,
+						// then use a different CSS class
 						if (endDate != '') {
-							stageClass = 'ed-td-stage-complete';
+							if ( thisExDashboard.parseDate(endDate) <= today ) {
+								stageClass = 'ed-td-stage-complete';
+							}
 						}
 
 						if (this.gsx$helpneeded.$t != '') {
