@@ -261,7 +261,6 @@
 		    Returns true if date is valid
 		    Source : http://solvedstack.com/questions/detecting-an-invalid-date-date-instance-in-javascript
 		-----------------------------------------------*/
-
 		this.isValidDate = function (d) {
 		  if ( Object.prototype.toString.call(d) !== "[object Date]" )
 		    return false;
