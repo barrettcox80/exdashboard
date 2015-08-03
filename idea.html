@@ -26,8 +26,15 @@
 
 	$( document ).ready(function() {
 
+		// Set up the dashboard params
+		var params = { sheet_id             : '1uFy6syzPx5olZ18cRowSGuw4RbFforfgYJ0UfkRnbt0',
+		               experiment_sheet_pos : '2',
+		               idea_sheet_pos       : '1',
+		               experiment_page_url  : 'experiment.html',
+		               idea_page_url        : 'idea.html' };
+
 		// Create a new dashboard object
-		var dashboard = new $.exDashboard('1uFy6syzPx5olZ18cRowSGuw4RbFforfgYJ0UfkRnbt0', '2', '1');
+		var dashboard = new $.exDashboard(params);
 
 		// Append the idea table
 		dashboard.insertIdea('.results');

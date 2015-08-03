@@ -20,18 +20,18 @@
 
 	console.log(dir);
 
-	$.exDashboard = function (sheetID, experimentSheetPos, ideaSheetPos) {
+	$.exDashboard = function (params) {
 
 		// Store a reference to this object prototype to
 		// use as a reference within the methods
 		var thisExDashboard = this;
 	    
 	    // The unique ID for the Google master spreadsheet
-	    this.sheetID = sheetID;
+	    this.sheetID = params.sheet_id;
 
 	    // The position (left to right) of the Idea and Experiment sub sheets
-	    this.experimentSheetPos = experimentSheetPos;
-	    this.ideaSheetPos       = ideaSheetPos;
+	    this.experimentSheetPos = params.experiment_sheet_pos;
+	    this.ideaSheetPos       = params.idea_sheet_pos;
 	    
 	    // Arrays
 	    this.ideas         = [];
@@ -40,12 +40,14 @@
 	    this.inactiveIdeas = [];
 
 	    // Construct urls for the spreadsheets
-		this.ideasUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + ideaSheetPos + '/public/values?alt=json';
-		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + experimentSheetPos + '/public/values?alt=json';
+		this.ideasUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.ideaSheetPos + '/public/values?alt=json';
+		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.experimentSheetPos + '/public/values?alt=json';
 		
 		// Experiment and Idea detail page urls
-		this.experimentPageUrl = 'experiment.html';
-		this.ideaPageUrl = 'idea.html';
+		//this.experimentPageUrl = 'experiment.html';
+		//this.ideaPageUrl = 'idea.html';
+		this.experimentPageUrl = params.experiment_page_url;
+		this.ideaPageUrl = params.idea_page_url;
 
 		// The url for the Mustache.js templates
 		this.templateURL = dir + '/mustache-templates/templates.html';
