@@ -42,8 +42,6 @@
 		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.experimentSheetPos + '/public/values?alt=json';
 		
 		// Experiment and Idea detail page urls
-		//this.experimentPageUrl = 'experiment.html';
-		//this.ideaPageUrl = 'idea.html';
 		this.experimentPageUrl = params.experiment_page_url;
 		this.ideaPageUrl = params.idea_page_url;
 
@@ -322,12 +320,12 @@
 			var toggleButtonString = '<tr><td><button id="toggle-ideas" data-toggle="hidden">Show All</button></td></tr>';
 			$('.ed-table-dashboard > tbody:last-child').append(toggleButtonString);
 
-				/*---------------------------------------
-				    Toggle button click event
-				---------------------------------------*/
-				$('#toggle-ideas').click(function() {
-					thisExDashboard.toggleIdeas();
-				}); 
+			/*---------------------------------------
+			    Toggle button click event
+			---------------------------------------*/
+			$('#toggle-ideas').click(function() {
+				thisExDashboard.toggleIdeas();
+			}); 
 		}
 		/*- insertToggleRow ---------------------------*/
 
