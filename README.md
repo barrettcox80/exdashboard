@@ -12,6 +12,7 @@ Experiment Dashboard was developed to read data from a Google spreadsheet. You m
 
 1. Download the [sample spreadsheet](https://docs.google.com/spreadsheets/d/1TY9b-w_BRLtUb7CGZsJGXAAFS8ITnNg3dVQHe5Aq-AM) and upload it to your own account.
 2. Make sure your spreadsheet is public. Go to Share -> Advanced, and change the access to "Public on the web".
+3. Also make sure that you publish your spreadsheet by going to File -> Publish to the web.
 
 ### Set up the pages
 
