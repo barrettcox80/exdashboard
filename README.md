@@ -53,6 +53,8 @@ Experiment Dashboard is designed to work across 3 pages:
 
 })(jQuery); /*-- jQuery --*/
 
+</script>
+
 ```
 
 #### Idea Template Page
