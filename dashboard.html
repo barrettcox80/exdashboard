@@ -15,8 +15,6 @@
 <div id="error"></div>
 <div id="ed-dashboard-table-container"></div> 
 
-
-
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/mustache.min.js"></script>
 <script type="text/javascript" src="js/exdashboard.js"></script>
@@ -28,16 +26,14 @@
 	$( document ).ready(function() {
 
 		// Set up the dashboard params
-		var params = { sheet_id             : '1uFy6syzPx5olZ18cRowSGuw4RbFforfgYJ0UfkRnbt0',
-		               experiment_sheet_pos : '2',
-		               idea_sheet_pos       : '1',
-		               experiment_page_url  : 'experiment.html',
-		               idea_page_url        : 'idea.html' };
+		var params = { sheet_id             : '1uFy6syzPx5olZ18cRowSGuw4RbFforfgYJ0UfkRnbt0', // Unique id of your Google spreadsheet
+					   experiment_sheet_pos : '2', // Integer representing the position of your Experiments sub sheet
+		               idea_sheet_pos       : '1', // Integer representing the position of your Ideas sub sheet
+		               experiment_page_url  : 'experiment.html', // URL for your experiment template page
+		               idea_page_url        : 'idea.html' }; // URL for your idea template page
 
 		// Create a new dashboard object
 		var dashboard = new $.exDashboard(params);
-
-		
 
 		// Assemble the table and inject it into the DOM
 		dashboard.makeTable('#ed-dashboard-table-container');
