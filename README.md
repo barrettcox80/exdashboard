@@ -24,110 +24,158 @@ Experiment Dashboard is designed to work across 3 pages:
 #### Dashboard Page
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
 
-<div id="ed-dashboard-table-container"></div> 
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="js/mustache.min.js"></script>
-<script type="text/javascript" src="js/exdashboard.js"></script>
+		<title>Experiment Dashboard</title>
 
-<script type="text/javascript">
+		<link rel="stylesheet" type="text/css" href="css/exdashboard.css">
 
-(function($){
+	</head>
 
-	$( document ).ready(function() {
+	<body>
 
-		// Set up the dashboard params
-		var params = { sheet_id             : '', // Unique id of your Google spreadsheet
-		               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
-		               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
-		               experiment_page_url  : '', // URL for your experiment template page
-		               idea_page_url        : '' }; // URL for your experiment template page
+		<div id="ed-dashboard-table-container"></div> 
 
-		// Create a new dashboard object
-		var dashboard = new $.exDashboard(params);
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="js/mustache.min.js"></script>
+		<script type="text/javascript" src="js/exdashboard.js"></script>
 
-		// Assemble the table and inject it into the DOM
-		dashboard.makeTable('#ed-dashboard-table-container');
+		<script type="text/javascript">
 
-	}); /*-- Ready --*/
+		(function($){
 
-})(jQuery); /*-- jQuery --*/
+			$( document ).ready(function() {
 
-</script>
+				// Set up the dashboard params
+				var params = { sheet_id             : '', // Unique id of your Google spreadsheet
+				               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
+				               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
+				               experiment_page_url  : '', // URL for your experiment template page
+				               idea_page_url        : '' }; // URL for your experiment template page
+
+				// Create a new dashboard object
+				var dashboard = new $.exDashboard(params);
+
+				// Assemble the table and inject it into the DOM
+				dashboard.makeTable('#ed-dashboard-table-container');
+
+			}); /*-- Ready --*/
+
+		})(jQuery); /*-- jQuery --*/
+
+		</script>
+	</body>
+</html>
 
 ```
 
 #### Idea Template Page
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="results"></div>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="js/mustache.min.js"></script>
-<script type="text/javascript" src="js/exdashboard.js"></script>
+		<title>Idea</title>
 
-<script type="text/javascript">
+		<link rel="stylesheet" type="text/css" href="css/exdashboard.css">
 
-(function($){
+	</head>
 
-	$( document ).ready(function() {
+	<body>
 
-		// Set up the dashboard params
-		var params = { sheet_id             : '', // Unique id of your Google spreadsheet
-		               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
-		               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
-		               experiment_page_url  : '', // URL for your experiment template page
-		               idea_page_url        : '' }; // URL for your experiment template page
+		<div class="results"></div>
 
-		// Create a new dashboard object
-		var dashboard = new $.exDashboard(params);
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="js/mustache.min.js"></script>
+		<script type="text/javascript" src="js/exdashboard.js"></script>
 
-		// Append the idea table
-		dashboard.insertIdea('.results');
+		<script type="text/javascript">
 
-	}); /*-- Ready --*/
+		(function($){
 
-})(jQuery); /*-- jQuery --*/
+			$( document ).ready(function() {
 
-</script>
+				// Set up the dashboard params
+				var params = { sheet_id             : '', // Unique id of your Google spreadsheet
+				               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
+				               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
+				               experiment_page_url  : '', // URL for your experiment template page
+				               idea_page_url        : '' }; // URL for your experiment template page
+
+				// Create a new dashboard object
+				var dashboard = new $.exDashboard(params);
+
+				// Append the idea table
+				dashboard.insertIdea('.results');
+
+			}); /*-- Ready --*/
+
+		})(jQuery); /*-- jQuery --*/
+
+		</script>
+	</body>
+</html>
 
 ```
 
 #### Experiment Template Page
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="results"></div>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="js/mustache.min.js"></script>
-<script type="text/javascript" src="js/exdashboard.js"></script>
+		<title>Experiment</title>
 
-<script type="text/javascript">
+		<link rel="stylesheet" type="text/css" href="css/exdashboard.css">
 
-(function($){
+	</head>
 
-	$( document ).ready(function() {
+	<body>
 
-		// Set up the dashboard params
-		var params = { sheet_id             : '', // Unique id of your Google spreadsheet
-		               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
-		               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
-		               experiment_page_url  : '', // URL for your experiment template page
-		               idea_page_url        : '' }; // URL for your experiment template page
+		<div class="results"></div>
 
-		// Create a new dashboard object
-		var dashboard = new $.exDashboard(params);
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="js/mustache.min.js"></script>
+		<script type="text/javascript" src="js/exdashboard.js"></script>
 
-		// Append the experiment table
-		dashboard.insertExperiment('.results');
-		 
-	}); /*-- Ready --*/
+		<script type="text/javascript">
 
-})(jQuery); /*-- jQuery --*/
+		(function($){
 
-</script>
+			$( document ).ready(function() {
+
+				// Set up the dashboard params
+				var params = { sheet_id             : '', // Unique id of your Google spreadsheet
+				               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
+				               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
+				               experiment_page_url  : '', // URL for your experiment template page
+				               idea_page_url        : '' }; // URL for your experiment template page
+
+				// Create a new dashboard object
+				var dashboard = new $.exDashboard(params);
+
+				// Append the experiment table
+				dashboard.insertExperiment('.results');
+				 
+			}); /*-- Ready --*/
+
+		})(jQuery); /*-- jQuery --*/
+
+		</script>
+	</body>
+</html>
 
 ```
