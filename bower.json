@@ -1,9 +1,10 @@
 {
-  "name": "SayHi",
-  "version": "1.0.0",
+  "name": "Experiment Dashboard",
+  "version": "0.7.0",
   "main": "./dashboard.html",
   "dependencies": {
     "jquery": "1.11.3",
     "mustache.js": "mustache#~2.1.3"
   }
 }
+	
