@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------------------------------------
     
-    Experiment Dashboard JS, v0.6
+    Experiment Dashboard JS, v0.7
 
 	Authors     : Barrett Cox, http://barrettcox.com
 	              Amy Wu, http://duende.us
@@ -70,9 +70,11 @@
 						// for the url parameters
 						var bigideaParam = thisExDashboard.paramString(this.gsx$bigidea.$t);
 						var bigBetTruncated = thisExDashboard.trimText(this.gsx$bigbet.$t, 50);
+						var tweetableHeadline = this.gsx$tweetableheadline.$t + '&nbsp;&rarr;';
 
 						ideaVars = {
 						    bigidea: this.gsx$bigidea.$t,
+						    tweetableheadline: tweetableHeadline,
 						    bigideaparam: bigideaParam,
 						    imageurl: this.gsx$imageurl.$t,
 						    createddate: this.gsx$createddate.$t,
@@ -126,6 +128,7 @@
 
 						var stageClass = '';
 						var stageNum = '';
+						var stageText = this.gsx$stage.$t;
 						var helpClass = 'ed-help';
 						var endDate = this.gsx$enddate.$t;
 						var endDateObject = thisExDashboard.parseDate(endDate);
@@ -133,16 +136,20 @@
 						var today = new Date();
 
 						// CSS class and number for stage
-						if (this.gsx$stage.$t == 'Design') {
+						if (stageText == 'Design') {
 							stageClass = 'ed-td-stage-design';
-							stageNum   = '1';
-						} else if (this.gsx$stage.$t == 'Running') {
+							stageNum   = ' 1';
+						} else if (stageText == 'Running') {
 							stageClass = 'ed-td-stage-running';
-							stageNum   = '2';
+							stageNum   = ' 2';
 
-						} else if (this.gsx$stage.$t == 'Debrief') {
+						} else if (stageText == 'Debrief') {
 							stageClass = 'ed-td-stage-debrief';
-							stageNum   = '3';
+							stageNum   = ' 3';
+						} else {
+							stageClass = 'ed-td-stage-complete';
+							stageNum   = '';
+
 						}
 
 						// If an endDate is valid, and endDate is today or earlier,
@@ -150,6 +157,9 @@
 						if (thisExDashboard.isValidDate(endDateObject) != false) {
 							if (thisExDashboard.parseDate(endDate) <= today) {
 								stageClass = 'ed-td-stage-complete';
+								stageText  = 'Done';
+								stageNum   = '';
+
 							}
 						}
 
@@ -162,13 +172,15 @@
 						var experimentParam = thisExDashboard.paramString(this.gsx$experimentcodename.$t);
 						var experimentIdea = this.gsx$idea.$t;
 						var experimentStartDate = this.gsx$startdate.$t;
+						var tweetableHeadline = this.gsx$tweetableheadline.$t + '&nbsp;&rarr;';
 
 						experimentVars = {
 						    idea: experimentIdea,
 						    bigbet: this.gsx$bigbet.$t,
+						    tweetableheadline: tweetableHeadline,
 						    experimentcodename: this.gsx$experimentcodename.$t,
 						    experimentparam: experimentParam,
-						    stage: this.gsx$stage.$t,
+						    stage: stageText,
 						    startdate: experimentStartDate,
 						    enddate: endDate,
 						    nextsteps: this.gsx$nextsteps.$t,
@@ -280,6 +292,7 @@
 
 				var bigidea = this.bigidea;
 				var emptyClass = 'ed-td-idea-empty' // Default to empty;
+				var matchingExperiments = [];
 				var experimentCells = [];
 
 				htmlString += '<tr class="' + cssRowClass + '">';
@@ -288,14 +301,24 @@
 			    $.each( thisExDashboard.experiments, function() {
 			    	if (this.idea == bigidea) {
 
-			    		// Experiment(s) exists, so use full class name
+			    		// 1 or more experiments exist for this idea, so use full class name for the Idea
 			    		emptyClass = 'ed-td-idea-full';
 
-			    		// Add the experiment cell to the row
-				    	exTemplate = $('#experimentTableCell').html();
-				    	experimentCells += Mustache.to_html(exTemplate, this);
+			    		matchingExperiments.push(this);			    		
 			    	}
 			    });
+
+			    // Sort the experiments by start date
+			    matchingExperiments.sort(thisExDashboard.sortExperimentsDesc);
+
+			    $.each( matchingExperiments, function() {
+			    	// Add the experiment cell to the row
+				    exTemplate = $('#experimentTableCell').html();
+				    experimentCells += Mustache.to_html(exTemplate, this);
+
+				});
+
+
 
 			    // Add the class name to the JSON object
 			    this.emptyclass = emptyClass;
@@ -303,7 +326,11 @@
 			    template = $('#ideaTableCell').html();
 				cell = Mustache.to_html(template, this);
 			    htmlString += cell;
+			    htmlString += '<td class="ed-experiments-cell">';
+			    htmlString += '<div class="ed-experiments-cell-container">';
 			    htmlString += experimentCells;
+			    htmlString += '</div>';
+			    htmlString += '</td>';
 			    htmlString += '</tr>';
 
 			});
@@ -399,7 +426,21 @@
 		/*- sortDesc ----------------------------------*/
 
 		/*-----------------------------------------------
-		    Sorts the ideas in descending order
+		    Sort experiments by start date in
+		    	descending order
+		-----------------------------------------------*/
+		this.sortExperimentsDesc = function (a,b) {
+		  if (a.startdate > b.startdate)
+		    return -1;
+		  if (a.startdate < b.startdate)
+		    return 1;
+		  return 0;
+		}
+		/*- sortExperimentsDesc -----------------------*/
+
+		/*-----------------------------------------------
+		    Find the most recent date in the experiments
+		    	for each idea
 		-----------------------------------------------*/
 		this.findRecentDates = function (ideaArrayRef) {
 			$.each( ideaArrayRef, function() {

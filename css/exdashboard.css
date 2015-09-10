@@ -27,8 +27,7 @@
   font-family : 'Roboto', sans-serif;
 }
 .ed-table-dashboard {
-  display: block;
-  overflow-x: auto;
+  /*display: block;*/
   border-spacing: 10px;
   border-collapse: separate;
   box-sizing : border-box;
@@ -45,18 +44,57 @@
   background-color : transparent;
   border : none;
   padding : 0;
-  text-align : left;  
+  text-align : left;
+  vertical-align : top;
 }
+.ed-table-dashboard tr > td.ed-experiments-cell {
+  display : block;
+  white-space : nowrap;
+}
+.ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
+  /*width : 2000px;*/
+  overflow-x : auto;
+  overflow-y : hidden;
+  direction : rtl; /* Right-to-left so that default view is scrolled all the way to the right */
+}
+.ed-table-dashboard .ed-experiment {
+  display: inline-block;
+  direction : ltr;
+}
+.ed-table-dashboard .ed-experiment > a {
+  display : block;
+  white-space : normal;
+  float: left;
+}
+/*
+.ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container > .ed-experiments-cell-container-inner {
+  position : absolute;
+  right : 0;
+}
+*/
+
 /*- End - 1.1 ------------------*/
 
 
 /*--------------------------------
     1.2 - Cell dimensions
 --------------------------------*/
-.ed-table-dashboard tr > th,
-.ed-table-dashboard tr > td > a {
+.ed-table-dashboard {
+  width : 549px;
+}
+.ed-table-dashboard tr > td.ed-experiments-cell {
+  height : 100%;
+}
+.ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
+  width : 315px;
+}
+.ed-table-dashboard .ed-experiment {
   width : 210px;
   height : 121px;
+}
+.ed-table-dashboard .ed-experiment > a {
+  width : 100%;
+  height : 100%;
 }
 .ed-table-dashboard tr > th:first-child,
 .ed-table-dashboard tr > td.ed-td-idea-full > a,
@@ -68,13 +106,28 @@
 .ed-table-dashboard tr > th:first-child {
   height : auto;
 }
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background-color : #cccccc;
+}
 /*- End - 1.2 ------------------*/
 
 
 /*--------------------------------
     1.4 - Cell links
 --------------------------------*/
-.ed-table-dashboard tr > td > a {
+.ed-table-dashboard tr > td > a,
+.ed-table-dashboard .ed-experiment > a {
   display : block;
   position : relative;
   box-sizing : border-box;
@@ -86,7 +139,8 @@
   -o-transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
   transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
 }
-.ed-table-dashboard tr > td > a > h3 {
+.ed-table-dashboard tr > td > a > h3,
+.ed-table-dashboard .ed-experiment > a > h3 {
   margin-top : 0;
   margin-bottom : 0;
 }
@@ -100,31 +154,51 @@
 } 
 .ed-table-dashboard tr > td > a:active,
 .ed-table-dashboard tr > td > a:hover,
-.ed-table-dashboard tr > td > a:visited {
+.ed-table-dashboard tr > td > a:visited,
+.ed-table-dashboard .ed-experiment > a:active,
+.ed-table-dashboard .ed-experiment > a:hover,
+.ed-table-dashboard .ed-experiment > a:visited {
   text-decoration : none;
   color : #333;
 }
+
+
 /*- End - 1.4 ------------------*/
 
 /*--------------------------------
     1.7 - Fonts
 --------------------------------*/
+/*
 .ed-table-dashboard tr > td > a > h3 { 
   font-size : 16px;
   line-height : 1.3em;
   font-family: 'Loved by the King', cursive;
   font-weight : 400;
 }
-.ed-table-dashboard tr > td > a > h4,
-.ed-table-dashboard tr > td > a > p,
-.ed-table-dashboard tr > td > a > h4.ed-stage,
-.ed-table-dashboard tr > td > a > h4.ed-next {
+*/
+.ed-table-dashboard tr > td > a > h3,
+.ed-table-dashboard .ed-experiment > a > h3 {
+  font-weight : 400;
+}
+.ed-table-dashboard tr > td.ed-idea > a > h4,
+/*.ed-table-dashboard tr > td > a > p,*/
+.ed-table-dashboard .ed-experiment > a > h4.ed-stage,
+.ed-table-dashboard .ed-experiment > a > h4.ed-next {
   font-size : 12px;
   line-height : 1.3em;
+  padding-right : 20px;
 }
-.ed-table-dashboard tr > td > a > h4.ed-stage,
-.ed-table-dashboard tr > td > a > h4.ed-next {
+.ed-table-dashboard tr > td.ed-idea > a > h4,
+.ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
+.ed-table-dashboard .ed-experiment > a > h4.ed-stage,
+.ed-table-dashboard .ed-experiment > a > h4.ed-next {
   font-weight : 600;
+}
+.ed-table-dashboard tr > td.ed-idea > a > h4,
+.ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
+.ed-table-dashboard .ed-experiment > a > h4.ed-stage {
+  text-transform : uppercase;
+  margin : 0 0 8px 0;
 }
 .ed-table-dashboard tr > td > a > p {
   line-height : 1.5em;
@@ -155,9 +229,19 @@
 }
 */
 /* Hide all What's Next for mobile */
-.ed-table-dashboard tr > td > a > h4.ed-next {
+/*
+.ed-table-dashboard .experiment  > a > h4.ed-next {
   display : none;
 }
+*/
+
+/* Hide Stage on the completed experiments */
+/*
+.ed-table-dashboard .ed-experiment.ed-td-stage-complete > a > h4.ed-stage {
+  display : none;
+}
+*/
+
 /*- End - 1.8 ------------------*/
 
 
@@ -182,10 +266,8 @@
   background-position : 0 -1px;
   background-repeat : no-repeat;
 }
-.ed-table-dashboard tr > td.ed-td-stage-debrief > a,
-.ed-table-dashboard tr > td.ed-td-stage-design > a,
-.ed-table-dashboard tr > td.ed-td-stage-running > a,
-.ed-table-dashboard tr > td.ed-td-stage-complete > a {
+
+.ed-table-dashboard .ed-experiment > a {
   background-image : url("../images/bg-frame-experiment.png");
   background-size : 100% auto;
   background-position : 0 -1px;
@@ -198,16 +280,16 @@
 .ed-table-dashboard tr > td.ed-td-idea-empty > a {
   background-color : #e2f4fd;
 }
-.ed-table-dashboard tr > td.ed-td-stage-debrief > a {
+.ed-table-dashboard .ed-experiment.ed-td-stage-debrief > a {
   background-color : #fbc6b4;
 }
-.ed-table-dashboard tr > td.ed-td-stage-design > a {
+.ed-table-dashboard .ed-experiment.ed-td-stage-design > a {
   background-color : #ffea88;
 }
-.ed-table-dashboard tr > td.ed-td-stage-running > a {
+.ed-table-dashboard .ed-experiment.ed-td-stage-running > a {
   background-color : #8cc751;
 }
-.ed-table-dashboard tr > td.ed-td-stage-complete > a {
+.ed-table-dashboard .ed-experiment.ed-td-stage-complete > a {
   background-color : #ddd;
 }
 
@@ -396,16 +478,21 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.2 - Cell dimensions
   --------------------------------*/
-  .ed-table-dashboard tr > th,
-  .ed-table-dashboard tr > td > a {
+  .ed-table-dashboard {
+    width : 909px;
+  }
+  .ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
+    width : 517px;
+  }
+  .ed-table-dashboard .ed-experiment {
     width : 345px;
-    height : 200px;
+    height : 210px;
   }
   .ed-table-dashboard tr > th:first-child,
   .ed-table-dashboard tr > td.ed-td-idea-full > a,
   .ed-table-dashboard tr > td.ed-td-idea-empty > a {
     width : 392px;
-    height : 200px;
+    height : 210px;
   }
   .ed-table-dashboard tr > th,
   .ed-table-dashboard tr > th:first-child {
@@ -417,14 +504,16 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.7 - Fonts
   --------------------------------*/
-  .ed-table-dashboard tr > td > a > h3 { 
-    font-size : 20px;
-  }
-  .ed-table-dashboard tr > td > a > h4,
-  .ed-table-dashboard tr > td > a > h4.ed-stage,
-  .ed-table-dashboard tr > td > a > h4.ed-next,
-  .ed-table-dashboard tr > td > a > p {
+  .ed-table-dashboard tr > td > a > h3,
+  .ed-table-dashboard .ed-experiment > a > h3 { 
     font-size : 16px;
+  }
+  .ed-table-dashboard tr > td.ed-idea > a > h4,
+  .ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
+  .ed-table-dashboard .ed-experiment > a > h4.ed-stage,
+  .ed-table-dashboard .ed-experiment > a > h4.ed-next,
+  .ed-table-dashboard tr > td > a > p {
+    font-size : 12px;
     line-height : 1.3em;
   }
   .ed-table-dashboard tr > td > a > p {
@@ -503,15 +592,14 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       4.7 - Fonts
   --------------------------------*/
+  /*
   .ed-table-dashboard tr > td > a > h3 { 
     font-size : 24px;
-  }
-  .ed-table-dashboard tr > td > a > h4 { 
-    font-size : 18px;
   }
   .ed-table-dashboard tr > td > a > p { 
     font-size : 16px;
   }
+  */
   /*- End - 4.7 ------------------*/
 
 

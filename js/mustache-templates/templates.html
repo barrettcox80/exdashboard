@@ -1,23 +1,23 @@
 <script id="ideaTableCell" type="text/template">
-	<td class="{{emptyclass}}">
+	<td class="ed-idea {{emptyclass}}">
 		<a href="{{detailpageurl}}?idea={{bigideaparam}}">
-			<h3>{{bigidea}}</h3>
-			<p>{{{bigbettruncated}}}</p> <!-- Triple curly braces to output HTML -->
+			<h4>{{bigidea}}</h4>
+			<h3>{{{tweetableheadline}}}</h3> <!-- Triple curly braces to output HTML -->
 		</a>
 	</td>
 </script>
 
 
 <script id="experimentTableCell" type="text/template">
-	<td class="{{stagecssclass}}">
+	<div class="ed-experiment {{stagecssclass}}">
 		<a href="{{detailpageurl}}?ex={{experimentparam}}">
-			<h3>{{experimentcodename}}</h3>
-			<p>{{{mvptruncated}}}</p> <!-- Triple curly braces to output HTML -->
-			<h4 class="ed-stage">Stage {{stagenum}}: {{stage}}</h4>
+			<h4 class="ed-experiment-name">{{experimentcodename}}</h4>
+			<h4 class="ed-stage">Stage{{stagenum}}: {{stage}}</h4>
+			<h3>{{{tweetableheadline}}}</h3> <!-- Triple curly braces to output HTML -->
 			<h4 class="ed-next">What&#39;s Next: {{nextsteps}}</h4>
 			<div class="{{helpclass}}" data-after="Help needed"></div>
 		</a>
-	</td>
+	</div>
 </script>
 
 
