@@ -198,7 +198,7 @@
 					}); /*-- $.each() --*/
 				} /*-- function --*/
 			}); /*-- $.ajax --*/
-		}
+		};
 		/*- initializeDashboard -----------------------*/
 
 
@@ -216,7 +216,7 @@
 			// Sort the ideas by their most recent experiment date
 			thisExDashboard.activeIdeas.sort(thisExDashboard.sortDesc);
 			thisExDashboard.inactiveIdeas.sort(thisExDashboard.sortDesc);
-		}
+		};
 		/*- getRecentDates ----------------------------*/
 
 
@@ -240,7 +240,7 @@
 			}
 			
 			return trimmed;
-		}
+		};
 		/*- trimText ---------------------------------*/
 
 
@@ -253,7 +253,7 @@
 			str = str.replace(/[_\s]/g, '-');       // Replace underscores and spaces with hyphens
 			str = str.toLowerCase();
 			return str;
-		}
+		};
 		/*- paramString -------------------------------*/
 
 
@@ -264,7 +264,7 @@
 		  var parts = input.split('/');
 		  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
 		  return new Date(parts[2], parts[0]-1, parts[1]); // Note: months are 0-based
-		}
+		};
 		/*- parseDate ---------------------------------*/
 
 
@@ -276,7 +276,7 @@
 		  if ( Object.prototype.toString.call(d) !== "[object Date]" )
 		    return false;
 		  return !isNaN(d.getTime());
-		}
+		};
 		/*- isValidDate -------------------------------*/
 
 
@@ -336,7 +336,7 @@
 			});
 
 			$('.ed-table-dashboard > tbody:last-child').append(htmlString);
-		}
+		};
 		/*- insertRows --------------------------------*/
 
 
@@ -353,7 +353,7 @@
 			$('#toggle-ideas').click(function() {
 				thisExDashboard.toggleIdeas();
 			}); 
-		}
+		};
 		/*- insertToggleRow ---------------------------*/
 
 
@@ -407,9 +407,7 @@
 				thisExDashboard.insertToggleRow();
 
 			});
-
-		  	
-		}
+		};
 		/*- makeTable ---------------------------------*/
 
 
@@ -417,26 +415,28 @@
 		    Sorts the ideas in descending order
 		-----------------------------------------------*/
 		this.sortDesc = function (a,b) {
-		  if (a.lastexperimentdate > b.lastexperimentdate)
-		    return -1;
-		  if (a.lastexperimentdate < b.lastexperimentdate)
-		    return 1;
-		  return 0;
-		}
+			if (a.lastexperimentdate > b.lastexperimentdate)
+		    	return -1;
+			if (a.lastexperimentdate < b.lastexperimentdate)
+		    	return 1;
+			return 0;
+		};
 		/*- sortDesc ----------------------------------*/
+
 
 		/*-----------------------------------------------
 		    Sort experiments by start date in
 		    	descending order
 		-----------------------------------------------*/
 		this.sortExperimentsDesc = function (a,b) {
-		  if (a.startdate > b.startdate)
-		    return -1;
-		  if (a.startdate < b.startdate)
-		    return 1;
-		  return 0;
-		}
+			if (a.startdate > b.startdate)
+		    	return -1;
+			if (a.startdate < b.startdate)
+		    	return 1;
+		  	return 0;
+		};
 		/*- sortExperimentsDesc -----------------------*/
+
 
 		/*-----------------------------------------------
 		    Find the most recent date in the experiments
@@ -468,7 +468,7 @@
 				this.lastexperimentdate = maxDate;
 
 			});
-		}
+		};
 		/*- findRecentDates ---------------------------*/
 
 
@@ -485,7 +485,7 @@
 				$('#toggle-ideas').text('Show All');
 				$('tr.idea-inactive').remove();
 			}
-		}
+		};
 		/*- toggleIdeas -------------------------------*/
 
 
@@ -512,7 +512,7 @@
 			})(jQuery); /*-- jQuery --*/
 
 			return linkItems;
-		}
+		};
 		/*- listLinks ---------------------------------*/
 
 
@@ -532,7 +532,7 @@
 			});
 
 			return helpNeededCount;
-		}
+		};
 		/*- helpNeededCount --------------------------*/
 
 
@@ -563,8 +563,7 @@
 				$('#ed-widget').html(templateHTML);
 
 			});
-		
-		}
+		};
 		/*- insertWidget ------------------------------*/
 
 
@@ -582,35 +581,206 @@
 		        vars[hash[0]] = hash[1];
 		    }
 		    return vars;
-		}
+		};
 		/*- getUrlVars --------------------------------*/
 
 
 		/*-----------------------------------------------
-		    Creates an idea table
+		    Loads the mustache templates, inserts the
+		    	data, and adds the html to the DOM
 		-----------------------------------------------*/
-		this.insertIdea = function (elementID) {
-			$.getJSON( thisExDashboard.ideasUrl, function( data ) {
-				
-				var template      = '';
+		this.populateTemplate = function(elementID, entryVars, templateId) {
+				//var template      = '';
 				var templateHTML  = '';
-				var entryVars     = {};
-				var ideaParam     = thisExDashboard.getUrlVars()['idea'];
-				var ideaName      = ''
+				//var entryVars     = {};
+				//var utmParam = thisExDashboard.getUrlVars()['ex'];
+				//var experimentName = '';
 
+				// Load the mustache templates
+				$( '<div/>', { 'id': 'mustache-templates'})
+					.appendTo( 'body' )
+					.css('visibility','hidden')
+					.load(thisExDashboard.templateURL, function() {
+
+					// Templates have loaded. Now...
+
+					// Populate the template
+					template = $(templateId).html();
+					templateHTML = Mustache.to_html(template, entryVars);
+
+					// Insert HTML into the DOM
+					$(elementID).html(templateHTML);
+
+					// Break the .each loop
+					return false;
+				});
+		};
+		/*- populateTemplate --------------------------*/
+
+
+		/*-----------------------------------------------
+		    Grabs the main content for a particular
+		    	experiment and then calls
+		    	populateTemplate to inject
+		    	it in the DOM
+		-----------------------------------------------*/
+		this.insertExperimentMainContent = function(elementID) {
+
+			var templateId = '#experimentMainContent';
+
+			$.getJSON( thisExDashboard.experimentsUrl, function( data ) {
+				
+				var entryVars       = {};
+				var experimentParam = thisExDashboard.getUrlVars()['ex'];
 
 				$.each( data.feed.entry, function() {
 
 					/*--------------------------------------------------------
-					   Compare the url param with each converted 
-					   idea name string
+					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == ideaParam ) {
+					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == experimentParam ) {
+
+						entryVars = {
+						    tweetableheadline: this.gsx$tweetableheadline.$t,
+						    mvp: thisExDashboard.insertBreaks(this.gsx$mvp.$t, false),
+						    hypothesis: thisExDashboard.insertBreaks(this.gsx$hypothesis.$t, false),
+						    mvpdesign: thisExDashboard.insertBreaks(this.gsx$mvpdesign.$t, false),
+						    keylearnings: thisExDashboard.insertBreaks(this.gsx$keylearnings.$t, false)
+						};
+
+					} 
+
+				}); /*-- $.each --*/
+
+				thisExDashboard.populateTemplate(elementID, entryVars, templateId);
+														 
+			}); /*-- .getJSON --*/
+		};
+		/*- insertExperimentMainContent ---------------*/
+
+
+		/*-----------------------------------------------
+		    Grabs the meta content for a particular
+		    	experiment and then calls
+		    	populateTemplate to inject
+		    	it in the DOM
+		-----------------------------------------------*/
+		this.insertExperimentMeta = function(elementID) {
+
+			var templateId = '#experimentMeta';
+
+			$.getJSON( thisExDashboard.experimentsUrl, function( data ) {
+				
+				var entryVars       = {};
+				var utmParam = thisExDashboard.getUrlVars()['ex'];
+
+				$.each( data.feed.entry, function() {
+
+					/*--------------------------------------------------------
+					   If the utm param matches the experiment name string
+					--------------------------------------------------------*/
+					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam ) {
+						
+						var folderLink = '';
+
+						/*-- Set the experiment name for the h1 --*/
+						//experimentName = this.gsx$experimentcodename.$t;
+
+						/*-- Create a list of document links --*/
+						var documentList = thisExDashboard.listLinks(this.gsx$documents.$t);
+
+						/*-- Create a list of blog links --*/
+						var blogList = thisExDashboard.listLinks(this.gsx$blogposts.$t);
+
+						/*-- Create a link to the experimentcodename folder --*/
+						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
+
+						entryVars = {
+						    stage: this.gsx$stage.$t,
+						    startdate: this.gsx$startdate.$t,
+						    enddate: this.gsx$enddate.$t,
+						    folderurl: folderLink,
+						    documents: documentList,
+						    blogposts: blogList,
+						    team: this.gsx$team.$t,
+						    googlegroup: this.gsx$googlegroup.$t,
+						    contact: this.gsx$contact.$t
+						};
+
+					} 
+
+				}); /*-- $.each --*/
+
+				thisExDashboard.populateTemplate(elementID, entryVars, templateId);
+														 
+			}); /*-- .getJSON --*/
+		};
+		/*- insertExperimentMeta ---------------*/
+
+
+		/*-----------------------------------------------
+		    Grabs the meta content for a particular
+		    	experiment and then calls
+		    	populateTemplate to inject
+		    	it in the DOM
+		-----------------------------------------------*/
+		this.insertExperimentAlerts = function(elementID) {
+
+			var templateId = '#experimentAlerts';
+
+			$.getJSON( thisExDashboard.experimentsUrl, function( data ) {
+				
+				var entryVars = {};
+				var utmParam  = thisExDashboard.getUrlVars()['ex'];
+
+				$.each( data.feed.entry, function() {
+
+					/*--------------------------------------------------------
+					   If the utm param matches the experiment name string
+					--------------------------------------------------------*/
+					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam  ) {
+
+						entryVars = {
+						    nextsteps: thisExDashboard.insertBreaks(this.gsx$nextsteps.$t, false),
+			    			helpneeded: thisExDashboard.insertBreaks(this.gsx$helpneeded.$t, false)		 
+						};
+
+					} 
+
+				}); /*-- $.each --*/
+
+				thisExDashboard.populateTemplate(elementID, entryVars, templateId);
+														 
+			}); /*-- .getJSON --*/
+		};
+		/*- insertExperimentAlerts --------------------*/
+
+
+		/*-----------------------------------------------
+		    Grabs the main content for a particular
+		    	idea and then calls populateTemplate
+		    	to inject it in the DOM
+		-----------------------------------------------*/
+		this.insertIdeaMainContent = function(elementID) {
+
+			var templateId = '#ideaMainContent';
+
+			$.getJSON( thisExDashboard.ideasUrl, function( data ) {
+				
+				var entryVars = {};
+				var utmParam  = thisExDashboard.getUrlVars()['idea'];
+
+				$.each( data.feed.entry, function() {
+
+					/*--------------------------------------------------------
+					   If the utm param matches the experiment name string
+					--------------------------------------------------------*/
+					if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
 
 						var folderLink = '';
 
 						/*-- Set the idea name for the h1 --*/
-						ideaName = this.gsx$bigidea.$t;
+						//ideaName = this.gsx$bigidea.$t;
 
 						/*-- Create a link to the experiment folder --*/
 						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
@@ -627,123 +797,132 @@
 						    folderurl: folderLink,
 						    strategy: this.gsx$strategy.$t,
 						};
+					} 
 
-						// Load the mustache templates
-					 	$( '<div/>', { 'id': 'mustache-templates'})
-							.appendTo( 'body' )
-							.css('visibility','hidden')
-							.load(thisExDashboard.templateURL, function() {
+				}); /*-- $.each --*/
 
-							// Templates have loaded. Now...
-
-							// Populate the template
-							template = $('#ideaTable').html();
-							templateHTML = Mustache.to_html(template, entryVars);
-
-							// Insert HTML into the DOM
-							$(elementID).html(templateHTML);
-
-							// Break the .each loop
-							return false;
-
-						});
-
-					} /*-- $.each --*/
-
-				});
-
-				$('.entry-title').html(ideaName);
+				thisExDashboard.populateTemplate(elementID, entryVars, templateId);
 														 
-			  	
-
 			}); /*-- .getJSON --*/
-		}
-		/*- insertIdea --------------------------------*/
-
+		};
+		/*- insertIdeaMainContent ---------------------*/
 
 		/*-----------------------------------------------
-		    Creates an experiment table
+		    Grabs the meta content for a particular
+		    	idea and then calls populateTemplate
+		    	to inject it in the DOM
 		-----------------------------------------------*/
-		this.insertExperiment = function (elementID) {
-			// Parse the JSON
-			$.getJSON( thisExDashboard.experimentsUrl, function( data ) {
+		this.insertIdeaMeta = function(elementID) {
+
+			var templateId = '#ideaMeta';
+
+			$.getJSON( thisExDashboard.ideasUrl, function( data ) {
 				
-				var template      = '';
-				var templateHTML  = '';
-				var entryVars     = {};
-				var experimentParam = thisExDashboard.getUrlVars()['ex'];
-				var experimentName = '';
+				var entryVars       = {};
+				var utmParam = thisExDashboard.getUrlVars()['idea'];
 
 				$.each( data.feed.entry, function() {
 
 					/*--------------------------------------------------------
-					   Compare the url param with each converted 
-					   experiment name string
+					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == experimentParam ) {
+					if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
 						
 						var folderLink = '';
-
-						/*-- Set the experiment name for the h1 --*/
-						experimentName = this.gsx$experimentcodename.$t;
-
-						/*-- Create a list of document links --*/
-						var documentList = thisExDashboard.listLinks(this.gsx$documents.$t);
-
-						/*-- Create a list of blog links --*/
-						var blogList = thisExDashboard.listLinks(this.gsx$blogposts.$t);
 
 						/*-- Create a link to the experimentcodename folder --*/
 						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
 
 						entryVars = {
-						    stage: this.gsx$stage.$t,
-						    startdate: this.gsx$startdate.$t,
-						    enddate: this.gsx$enddate.$t,
-						    nextsteps: thisExDashboard.insertBreaks(this.gsx$nextsteps.$t, false),
-						    mvp: thisExDashboard.insertBreaks(this.gsx$mvp.$t, false),
-						    hypothesis: thisExDashboard.insertBreaks(this.gsx$hypothesis.$t, false),
-						    mvpdesign: thisExDashboard.insertBreaks(this.gsx$mvpdesign.$t, false),
-						    helpneeded: thisExDashboard.insertBreaks(this.gsx$helpneeded.$t, false),
-						    keylearnings: thisExDashboard.insertBreaks(this.gsx$keylearnings.$t, false),
+						    createddate: this.gsx$createddate.$t,
 						    folderurl: folderLink,
-						    documents: documentList,
-						    blogposts: blogList,
-						    team: this.gsx$team.$t,
-						    googlegroup: this.gsx$googlegroup.$t,
-						    contact: this.gsx$contact.$t
+						    strategy: this.gsx$strategy.$t,
 						};
 
-						// Load the mustache templates
-						$( '<div/>', { 'id': 'mustache-templates'})
-							.appendTo( 'body' )
-							.css('visibility','hidden')
-							.load(thisExDashboard.templateURL, function() {
+					} 
 
-							// Templates have loaded. Now...
+				}); /*-- $.each --*/
 
-							// Populate the template
-							template = $('#experimentTable').html();
-							templateHTML = Mustache.to_html(template, entryVars);
-
-							// Insert HTML into the DOM
-							$(elementID).html(templateHTML);
-
-							// Break the .each loop
-							return false;
-
-						});
-
-					} /*-- $.each --*/
-
-				});
-
-				$('.entry-title').html(experimentName)
+				thisExDashboard.populateTemplate(elementID, entryVars, templateId);
 														 
 			}); /*-- .getJSON --*/
-		}
-		/*- insertExperiment --------------------------*/
+		};
+		/*- insertIdeaMeta ---------------*/
 
+
+		/*-----------------------------------------------
+		    Adds the experiment/idea name to an element
+		-----------------------------------------------*/
+		this.insertHeader = function(elementID) {
+
+			var sheetUrl      = '';
+			var utmParam      = '';
+			var entryVars     = {};
+			var categoryTitle = '';
+
+			if (thisExDashboard.getUrlVars()['idea'] != null) {
+				sheetUrl  = thisExDashboard.ideasUrl;
+				utmParam  = thisExDashboard.getUrlVars()['idea'];
+				categoryTitle = "Idea";
+
+				$.getJSON( sheetUrl, function( data ) {
+
+					$.each( data.feed.entry, function() {
+
+						if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
+							entryVars = {
+								categorytitle: categoryTitle,
+								title: this.gsx$bigidea.$t,
+								imageurl: this.gsx$imageurl.$t,
+							    dashboardurl: ''
+							};
+
+							// Populate the template and 
+							thisExDashboard.populateTemplate(elementID, entryVars, '#pageHeader');
+						}
+
+					}); /*-- $.each --*/
+
+				}); /*-- .getJSON --*/
+
+			} else if (thisExDashboard.getUrlVars()['ex'] != null) {
+
+				sheetUrl = thisExDashboard.experimentsUrl;
+				utmParam = thisExDashboard.getUrlVars()['ex'];
+				categoryTitle = "Experiment";
+
+				$.getJSON( sheetUrl, function( data ) {
+
+					$.each( data.feed.entry, function() {
+
+						if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam ) {
+
+							entryVars = {
+								categorytitle: categoryTitle,
+								title: this.gsx$experimentcodename.$t,
+								imageurl: this.gsx$coverimageurl.$t,
+							    dashboardurl: ''
+							};
+
+							// Populate the template and 
+							thisExDashboard.populateTemplate(elementID, entryVars, '#pageHeader');
+						}
+
+					}); /*-- $.each --*/
+
+
+
+				}); /*-- .getJSON --*/
+
+			} else {
+
+				// End the function if there is no 'idea' or 'ex' params
+				return false;
+
+			}
+
+		};
+		
 
 		/*-----------------------------------------------
 		    Returns string with line breaks
@@ -752,7 +931,7 @@
 		this.insertBreaks = function (str, is_xhtml) {   
 		    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
 		    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
-		}
+		};
 
 		// Grab all the data from the spreadsheets
 		this.initializeDashboard();

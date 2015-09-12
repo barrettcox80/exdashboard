@@ -12,7 +12,10 @@
 </head>
 <body>
 
-<div class="results"></div>
+<div id="ed-header"></div>
+<div id="main-content"></div>
+<div id="meta"></div>
+<div id="alerts"></div>
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/mustache.js/mustache.min.js"></script>
@@ -34,8 +37,17 @@
 		// Create a new dashboard object
 		var dashboard = new $.exDashboard(params);
 
-		// Append the experiment table
-		dashboard.insertExperiment('.results');
+		// Add the experiment alerts to the element
+		dashboard.insertHeader('#ed-header');
+
+		// Add the experiment main content to the element
+		dashboard.insertExperimentMainContent('#main-content');
+
+		// Add the experiment meta content to the element
+		dashboard.insertExperimentMeta('#meta');
+
+		// Add the experiment alerts to the element
+		dashboard.insertExperimentAlerts('#alerts');
 		 
 	}); /*-- Ready --*/
 

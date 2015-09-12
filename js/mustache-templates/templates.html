@@ -7,7 +7,6 @@
 	</td>
 </script>
 
-
 <script id="experimentTableCell" type="text/template">
 	<div class="ed-experiment {{stagecssclass}}">
 		<a href="{{detailpageurl}}?ex={{experimentparam}}">
@@ -20,32 +19,44 @@
 	</div>
 </script>
 
+<script id="pageHeader" type="text/template">
+	<div id="ed-header">
+		<h4>{{categorytitle}}</h4>
+		<h2>{{title}}</h2>
+		<ul class="ed-header-nav">
+			<li><a href="{{dashboardurl}}">back to Dashboard</a></li>
+			<li><a href="{{viewsheeturl}}">view/update spreadsheet</a></li>
+		</ul>
+		<div class="ed-header-image" style="background-image: {{imageurl}};"></div>
+	</div>
+</script>
 
-<script id="ideaTable" type="text/template">
+<script id="ideaMainContent" type="text/template">
+	<div class="ed-main-content">
+		<h1>{{tweetableheadline}}</h1>
+
+		<h3>Idea</h3>
+		<p>{{idea}}</p>
+
+		<h3>Outcome</h3>
+		<p>{{{outcome}}}</p>
+
+		<h3>Big Bet Hypothesis<br><span class="subheading">(Idea + Outcome)</span></h3>
+		<p>{{{bigbet}}}</p>
+
+		<h3>Assumptions</h3>
+		<p>{{{assumptions}}}</p>
+
+		<h3>Questions</h3>
+		<p>{{{questions}}}</p>
+	</div>
+</script>
+
+<script id="ideaMeta" type="text/template">
 	<table class="ed-table-details">
 		<tr>
 			<th scope="row">Created Date</th>
 			<td>{{createddate}}</td>
-		</tr>
-		<tr>
-			<th scope="row">Idea</th>
-			<td>{{idea}}</td>
-		</tr>
-		<tr>
-			<th scope="row">Outcome</th>
-			<td>{{{outcome}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Big Bet Hypothesis<br><span class="subheading">(Idea + Outcome)</span></th>
-			<td>{{{bigbet}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Assumptions</th>
-			<td>{{{assumptions}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Questions</th>
-			<td>{{{questions}}}</td> <!-- Triple curly braces to output HTML -->
 		</tr>
 		<tr>
 			<th scope="row">Folder</th>
@@ -58,7 +69,29 @@
 	</table>
 </script>
 
-<script id="experimentTable" type="text/template">
+<script id="experimentMainContent" type="text/template">
+
+	<div class="ed-main-content">
+
+		<h1>{{tweetableheadline}}</h1>
+
+		<h3>MVP</h3>
+		<p>{{{mvp}}}</p> <!-- Triple curly braces to output HTML -->
+
+		<h3>Hypothesis</h3>
+		<p>{{{hypothesis}}}</p> <!-- Triple curly braces to output HTML -->
+
+		<h3>MVP Design</h3>
+		<p>{{{mvpdesign}}}</p> <!-- Triple curly braces to output HTML -->
+
+		<h3>Key Learnings</h3>
+		<p>{{{keylearnings}}}</p> <!-- Triple curly braces to output HTML -->
+
+	</div>
+
+</script>
+
+<script id="experimentMeta" type="text/template">
 	<table class="ed-table-details">
 		<tr>
 			<th scope="row">Stage</th>
@@ -71,30 +104,6 @@
 		<tr>
 			<th scope="row">End Date</th>
 			<td>{{enddate}}</td>
-		</tr>
-		<tr>
-			<th scope="row">What&#39;s Next?</th>
-			<td>{{{nextsteps}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">MVP</th>
-			<td>{{{mvp}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Hypothesis</th>
-			<td>{{{hypothesis}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">MVP Design</th>
-			<td>{{{mvpdesign}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Help Needed</th>
-			<td>{{{helpneeded}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Key Learnings</th>
-			<td>{{{keylearnings}}}</td> <!-- Triple curly braces to output HTML -->
 		</tr>
 		<tr>
 			<th scope="row">Documents</th>
@@ -119,6 +128,19 @@
 		<tr>
 			<th scope="row">Contact</th>
 			<td>{{contact}}</td>
+		</tr>								
+	</table>
+</script>
+
+<script id="experimentAlerts" type="text/template">
+	<table class="ed-table-details">
+		<tr>
+			<th scope="row">What&#39;s Next?</th>
+			<td>{{{nextsteps}}}</td>
+		</tr>
+		<tr>
+			<th scope="row">Help Needed</th>
+			<td>{{{helpneeded}}}</td>
 		</tr>
 	</table>
 </script>
