@@ -183,6 +183,7 @@ body {
 .ed-table-dashboard tr > td > a > h3,
 .ed-table-dashboard .ed-experiment > a > h3 {
   font-weight : 400;
+  font-size : 100%;
   line-height : 1.25;
 }
 .ed-table-dashboard tr > td.ed-idea > a > h4,
@@ -205,7 +206,11 @@ body {
   text-transform : uppercase;
   margin : 0 0 8px 0;
 }
+.ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name {
+  margin : 0 0 5px 0;
+}
 .ed-table-dashboard .ed-experiment > a > h4.ed-next {
+  font-size: 100%;
   margin: 8px 0;
 }
 .ed-table-dashboard tr > td > a > p {
@@ -302,7 +307,9 @@ body {
 }
 
 .ed-table-dashboard tr > td > a:hover,
-.ed-table-dashboard tr > td > a:active {
+.ed-table-dashboard tr > td > a:active,
+.ed-table-dashboard .ed-experiment > a:hover,
+.ed-table-dashboard .ed-experiment > a:active {
   background-color : #333;
 }
 .ed-table-dashboard tr > td > a:hover > h3,
@@ -310,7 +317,13 @@ body {
 .ed-table-dashboard tr > td > a:hover > h4,
 .ed-table-dashboard tr > td > a:active > h4,
 .ed-table-dashboard tr > td > a:hover > p,
-.ed-table-dashboard tr > td > a:active > p {
+.ed-table-dashboard tr > td > a:active > p,
+.ed-table-dashboard .ed-experiment > a:hover > h3,
+.ed-table-dashboard .ed-experiment > a:active > h3,
+.ed-table-dashboard .ed-experiment > a:hover > h4,
+.ed-table-dashboard .ed-experiment > a:active > h4,
+.ed-table-dashboard .ed-experiment > a:hover > p,
+.ed-table-dashboard .ed-experiment > a:active > p {
   color : #fff;
 }
 /*- End - 1.10 -----------------*/
@@ -319,14 +332,14 @@ body {
 /*--------------------------------
     1.12 - Help Needed icon
 --------------------------------*/
-.ed-table-dashboard tr > td > a > .ed-help {
+.ed-table-dashboard .ed-experiment > a > .ed-help {
   display : none;
 }
-.ed-table-dashboard tr > td > a > .ed-help.needed {
+.ed-table-dashboard .ed-experiment > a > .ed-help.needed {
   display : block;
   position : absolute;
-  right : 10px;
-  bottom : 10px;
+  right : 15px;
+  bottom : 25px;
   width : 10px;
   height : 10px;
   background-color : #f1592a;
@@ -334,12 +347,12 @@ body {
   -moz-border-radius : 50%;
   -webkit-border-radius : 50%;
 }
-.ed-table-dashboard tr > td > a > .ed-help.needed:hover:after {
+.ed-table-dashboard .ed-experiment > a > .ed-help.needed:hover:after {
   content: attr(data-after);
   display : block;
   position : absolute;
   top : -5px;
-  left : 20px;
+  right : 20px;
   width : 100px;
   padding : 4px;
   box-sizing : border-box;
@@ -428,6 +441,12 @@ a#ed-dashboard-feedback:hover:after {
 .ed-main-content p {
   margin: 15px 0 40px 0;
 }
+.ed-main-content .key-learnings-container {
+  background-color: #cdfffe;
+  padding: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
 .ed-table-details {
   /*max-width : 700px;*/
   margin : 0 auto;
@@ -454,19 +473,19 @@ a#ed-dashboard-feedback:hover:after {
 .ed-table-details th {
   background-color : transparent;
   text-align : right;
-  font-family : 'Loved by the King', cursive;
-  font-weight : 400;
-  font-size : 24px;
+  font-weight : 600;
+  font-size : 75%;
+  text-transform: uppercase;
   line-height : 1.3em;
-  vertical-align : top;
-  width : 100px;
+  vertical-align : baseline;
+  width : 130px;
   padding : 15px;
 }
 .ed-table-details td {
-  vertical-align : top;
+  vertical-align : baseline;
   padding-top : 10px;
   padding-bottom : 30px;
-  padding : 15px;
+  padding : 15px; 
 }
 .ed-table-details td a {
   display : block;
@@ -602,12 +621,10 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.7 - Fonts
   --------------------------------*/
-  /*
   .ed-table-dashboard tr > td > a > h3,
   .ed-table-dashboard .ed-experiment > a > h3 { 
-    font-size : 100%;
+    font-size : 110%;
   }
-  */
   .ed-table-dashboard tr > td.ed-idea > a > h4,
   .ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
   .ed-table-dashboard .ed-experiment > a > h4.ed-stage,
@@ -663,9 +680,9 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.12 - Help Needed icon
   --------------------------------*/
-  .ed-table-dashboard tr > td > a > .ed-help.needed {
+  .ed-table-dashboard .ed-experiment > a > .ed-help.needed {
     right : 15px;
-    bottom : 15px;
+    bottom : 25px;
     width : 15px;
     height : 15px;
   }
