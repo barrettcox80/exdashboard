@@ -41,9 +41,10 @@
 		this.ideasUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.ideaSheetPos + '/public/values?alt=json';
 		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.experimentSheetPos + '/public/values?alt=json';
 		
-		// Experiment and Idea detail page urls
+		// Page urls
+		this.dashboardPageUrl  = params.dashboard_page_url;
 		this.experimentPageUrl = params.experiment_page_url;
-		this.ideaPageUrl = params.idea_page_url;
+		this.ideaPageUrl       = params.idea_page_url;
 
 		// The url for the Mustache.js templates
 		this.templateURL = dir + '/mustache-templates/templates.html';
@@ -566,6 +567,22 @@
 		};
 		/*- insertWidget ------------------------------*/
 
+		/*-----------------------------------------------
+		    Return UTM variables as an
+		    associative array
+		-----------------------------------------------*/
+		this.parseUrlString = function(urlString) {
+			var vars = [], hash;
+		    var hashes = urlString.slice(urlString.indexOf('?') + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++) {
+		        hash = hashes[i].split('=');
+		        vars.push(hash[0]);
+		        vars[hash[0]] = hash[1];
+		    	
+		    }
+		    return vars;
+		};
+		/*- getUrlVars --------------------------------*/
 
 		/*-----------------------------------------------
 		    Read a page's GET URL variables and return
@@ -574,8 +591,7 @@
 		this.getUrlVars = function () {
 		    var vars = [], hash;
 		    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-		    for(var i = 0; i < hashes.length; i++)
-		    {
+		    for(var i = 0; i < hashes.length; i++) {
 		        hash = hashes[i].split('=');
 		        vars.push(hash[0]);
 		        vars[hash[0]] = hash[1];
@@ -583,6 +599,23 @@
 		    return vars;
 		};
 		/*- getUrlVars --------------------------------*/
+
+
+		/*-----------------------------------------------
+		    Returns Drive ID from url string
+		-----------------------------------------------*/
+		this.getDriveId = function (urlString) {
+			var childDir = 0;
+			var directories = urlString.split('/');
+			for(var i = 0; i < directories.length; i++) {
+		    	if (directories[i] == 'd') {
+		    		childDir = i + 1;
+		    		return directories[childDir];
+		    	}
+		    }
+		    return false;
+		};
+		/*- getDriveId --------------------------------*/
 
 
 		/*-----------------------------------------------
@@ -851,7 +884,7 @@
 
 
 		/*-----------------------------------------------
-		    Adds the experiment/idea name to an element
+		    Adds the header experiment/idea page
 		-----------------------------------------------*/
 		this.insertHeader = function(elementID) {
 
@@ -869,16 +902,36 @@
 
 					$.each( data.feed.entry, function() {
 
+						var imageUrl = this.gsx$imageurl.$t;
+						var htmlString = '';
+						var display = "block";
+
+						// If idea matches idea UTM param
 						if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
+							
+							// If imageUrl exists
+							if ( imageUrl != '' ) {
+								// If url contains 'drive.google.com'
+								if ( imageUrl.search('drive.google.com') != -1) {
+									imageUrl = 'https://drive.google.com/uc?export=view&id='+thisExDashboard.parseUrlString(imageUrl)['id'];
+								}
+								
+							} else {
+								display : 'none';
+							}
+
 							entryVars = {
 								categorytitle: categoryTitle,
 								title: this.gsx$bigidea.$t,
-								imageurl: this.gsx$imageurl.$t,
-							    dashboardurl: ''
+								imageurl: imageUrl,
+								display: display,
+							    dashboardurl: thisExDashboard.dashboardPageUrl
+
 							};
 
-							// Populate the template and 
+							// Populate the template 
 							thisExDashboard.populateTemplate(elementID, entryVars, '#pageHeader');
+
 						}
 
 					}); /*-- $.each --*/
@@ -895,22 +948,29 @@
 
 					$.each( data.feed.entry, function() {
 
+						var imageUrl = this.gsx$coverimageurl.$t;
+
+						// If idea matches idea UTM param
 						if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam ) {
+
+							// If url contains 'drive.google.com'
+							if ( imageUrl.search('drive.google.com') != -1) {
+								imageUrl = 'https://drive.google.com/uc?export=view&id='+thisExDashboard.parseUrlString(imageUrl)['id'];
+								console.log(imageUrl);
+							}
 
 							entryVars = {
 								categorytitle: categoryTitle,
 								title: this.gsx$experimentcodename.$t,
-								imageurl: this.gsx$coverimageurl.$t,
-							    dashboardurl: ''
+								imageurl: imageUrl,
+							    dashboardurl: thisExDashboard.dashboardPageUrl
 							};
 
-							// Populate the template and 
+							// Populate the template 
 							thisExDashboard.populateTemplate(elementID, entryVars, '#pageHeader');
 						}
 
 					}); /*-- $.each --*/
-
-
 
 				}); /*-- .getJSON --*/
 
@@ -920,8 +980,8 @@
 				return false;
 
 			}
-
 		};
+		/*- insertHeader ------------------------------*/
 		
 
 		/*-----------------------------------------------

@@ -449,6 +449,37 @@ a#ed-dashboard-feedback:hover:after {
 }
 /*- End - 1.14 -----------------*/
 
+/*--------------------------------
+    1.15 - Idea/Experiment Header
+--------------------------------*/
+.ed-header h2,
+.ed-header h4 {
+  text-align: center;
+}
+.ed-header ul.ed-header-nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.ed-header ul.ed-header-nav li {
+  padding-bottom : 20px;
+}
+.ed-header ul.ed-header-nav li:first-child {
+  float: left;
+  padding-left : 10px;
+}
+.ed-header ul.ed-header-nav li:last-child {
+  float: right;
+  padding-right : 10px;
+}
+.ed-header .ed-header-image {
+  clear: both;
+  height: 360px;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+/*- End - 1.15 -----------------*/
+
 /*- End - 1.0 - Mobile First --------------------*/
 
 

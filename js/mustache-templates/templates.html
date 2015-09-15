@@ -20,14 +20,14 @@
 </script>
 
 <script id="pageHeader" type="text/template">
-	<div id="ed-header">
+	<div class="ed-header">
 		<h4>{{categorytitle}}</h4>
 		<h2>{{title}}</h2>
 		<ul class="ed-header-nav">
 			<li><a href="{{dashboardurl}}">back to Dashboard</a></li>
 			<li><a href="{{viewsheeturl}}">view/update spreadsheet</a></li>
 		</ul>
-		<div class="ed-header-image" style="background-image: {{imageurl}};"></div>
+		<div class="ed-header-image" style="background-image: url({{imageurl}}); display: {{display}};"></div>
 	</div>
 </script>
 
