@@ -23,6 +23,9 @@
 /*--------------------------------
     1.1 - Basic table styling
 --------------------------------*/
+body {
+  font-size: 100%;
+}
 #ed-dashboard-table-container {
   font-family : 'Roboto', sans-serif;
 }
@@ -132,6 +135,7 @@
   position : relative;
   box-sizing : border-box;
   padding : 20px;
+  overflow : hidden;
   text-decoration : none;
   color : #333;
   -webkit-transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
@@ -179,12 +183,12 @@
 .ed-table-dashboard tr > td > a > h3,
 .ed-table-dashboard .ed-experiment > a > h3 {
   font-weight : 400;
+  line-height : 1.25;
 }
 .ed-table-dashboard tr > td.ed-idea > a > h4,
-/*.ed-table-dashboard tr > td > a > p,*/
 .ed-table-dashboard .ed-experiment > a > h4.ed-stage,
 .ed-table-dashboard .ed-experiment > a > h4.ed-next {
-  font-size : 12px;
+  font-size : 75%;
   line-height : 1.3em;
   padding-right : 20px;
 }
@@ -197,8 +201,12 @@
 .ed-table-dashboard tr > td.ed-idea > a > h4,
 .ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
 .ed-table-dashboard .ed-experiment > a > h4.ed-stage {
+  font-size : 75%;
   text-transform : uppercase;
   margin : 0 0 8px 0;
+}
+.ed-table-dashboard .ed-experiment > a > h4.ed-next {
+  margin: 8px 0;
 }
 .ed-table-dashboard tr > td > a > p {
   line-height : 1.5em;
@@ -404,10 +412,28 @@ a#ed-dashboard-feedback:hover:after {
     1.14 - Idea/Experiment
            Detail Tables
 --------------------------------*/
+.ed-main-content,
 .ed-table-details {
-  max-width : 700px;
+  font-family : 'Roboto', sans-serif;
+}
+.ed-main-content {
+  padding : 15px;
+}
+.ed-main-content h1 {
+  line-height: 1.3em;
+}
+.ed-main-content h3 {
+  margin: 15px 0;
+}
+.ed-main-content p {
+  margin: 15px 0 40px 0;
+}
+.ed-table-details {
+  /*max-width : 700px;*/
   margin : 0 auto;
   border-collapse : collapse;
+  box-sizing : border-box;
+  width : 100%;
 }
 .ed-table-details th,
 .ed-table-details td {
@@ -433,12 +459,14 @@ a#ed-dashboard-feedback:hover:after {
   font-size : 24px;
   line-height : 1.3em;
   vertical-align : top;
-  width : 50%;
+  width : 100px;
+  padding : 15px;
 }
 .ed-table-details td {
   vertical-align : top;
   padding-top : 10px;
   padding-bottom : 30px;
+  padding : 15px;
 }
 .ed-table-details td a {
   display : block;
@@ -447,14 +475,33 @@ a#ed-dashboard-feedback:hover:after {
 .ed-table-details td.forced-wrap {
   word-break: break-all;
 }
+.ed-table-alerts {
+  background-color : #fdeb87;
+}
+.ed-table-meta {
+  background-color : #f9f9f9;
+}
 /*- End - 1.14 -----------------*/
 
 /*--------------------------------
     1.15 - Idea/Experiment Header
 --------------------------------*/
+.ed-header {
+  font-family : 'Roboto', sans-serif;
+}
 .ed-header h2,
 .ed-header h4 {
   text-align: center;
+}
+.ed-header h2 {
+  font-family : 'Loved by the King', cursive;
+  font-size : 200%;
+}
+.ed-header h4 {
+  text-transform: uppercase;
+  font-size: 75%;
+  color: #666666;
+  letter-spacing: 0.1em;
 }
 .ed-header ul.ed-header-nav {
   list-style-type: none;
@@ -479,6 +526,26 @@ a#ed-dashboard-feedback:hover:after {
   background-size: 100% auto;
 }
 /*- End - 1.15 -----------------*/
+
+
+/*--------------------------------
+    1.16 - Clearfix
+--------------------------------*/
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+/*- End - 1.16 -----------------*/
+
 
 /*- End - 1.0 - Mobile First --------------------*/
 
@@ -535,16 +602,18 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.7 - Fonts
   --------------------------------*/
+  /*
   .ed-table-dashboard tr > td > a > h3,
   .ed-table-dashboard .ed-experiment > a > h3 { 
-    font-size : 16px;
+    font-size : 100%;
   }
+  */
   .ed-table-dashboard tr > td.ed-idea > a > h4,
   .ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
   .ed-table-dashboard .ed-experiment > a > h4.ed-stage,
   .ed-table-dashboard .ed-experiment > a > h4.ed-next,
   .ed-table-dashboard tr > td > a > p {
-    font-size : 12px;
+    font-size : 75%;
     line-height : 1.3em;
   }
   .ed-table-dashboard tr > td > a > p {

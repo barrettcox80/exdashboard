@@ -40,7 +40,8 @@
 	    // Construct urls for the spreadsheets
 		this.ideasUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.ideaSheetPos + '/public/values?alt=json';
 		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.experimentSheetPos + '/public/values?alt=json';
-		
+		this.workingUrl ='https://docs.google.com/spreadsheets/d/'+ this.sheetID;
+
 		// Page urls
 		this.dashboardPageUrl  = params.dashboard_page_url;
 		this.experimentPageUrl = params.experiment_page_url;
@@ -143,14 +144,12 @@
 						} else if (stageText == 'Running') {
 							stageClass = 'ed-td-stage-running';
 							stageNum   = ' 2';
-
 						} else if (stageText == 'Debrief') {
 							stageClass = 'ed-td-stage-debrief';
 							stageNum   = ' 3';
 						} else {
 							stageClass = 'ed-td-stage-complete';
 							stageNum   = '';
-
 						}
 
 						// If an endDate is valid, and endDate is today or earlier,
@@ -915,14 +914,15 @@
 								if ( imageUrl.search('drive.google.com') != -1) {
 									imageUrl = 'https://drive.google.com/uc?export=view&id='+thisExDashboard.parseUrlString(imageUrl)['id'];
 								}
-								
+
 							} else {
-								display : 'none';
+								display = 'none';
 							}
 
 							entryVars = {
 								categorytitle: categoryTitle,
 								title: this.gsx$bigidea.$t,
+								viewsheeturl: thisExDashboard.workingUrl,
 								imageurl: imageUrl,
 								display: display,
 							    dashboardurl: thisExDashboard.dashboardPageUrl
@@ -949,20 +949,28 @@
 					$.each( data.feed.entry, function() {
 
 						var imageUrl = this.gsx$coverimageurl.$t;
+						var display = "block";
 
 						// If idea matches idea UTM param
 						if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam ) {
 
-							// If url contains 'drive.google.com'
-							if ( imageUrl.search('drive.google.com') != -1) {
-								imageUrl = 'https://drive.google.com/uc?export=view&id='+thisExDashboard.parseUrlString(imageUrl)['id'];
-								console.log(imageUrl);
+							// If imageUrl exists
+							if ( imageUrl != '' ) {
+								// If url contains 'drive.google.com'
+								if ( imageUrl.search('drive.google.com') != -1) {
+									imageUrl = 'https://drive.google.com/uc?export=view&id='+thisExDashboard.parseUrlString(imageUrl)['id'];
+								}
+								
+							} else {
+								display = 'none';
 							}
 
 							entryVars = {
 								categorytitle: categoryTitle,
 								title: this.gsx$experimentcodename.$t,
+								viewsheeturl: thisExDashboard.workingUrl,
 								imageurl: imageUrl,
+								display: display,
 							    dashboardurl: thisExDashboard.dashboardPageUrl
 							};
 
