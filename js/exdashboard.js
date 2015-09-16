@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------------------------------------
     
-    Experiment Dashboard JS, v0.7
+    Experiment Dashboard JS, v0.7.1
 
 	Authors     : Barrett Cox, http://barrettcox.com
 	              Amy Wu, http://duende.us
@@ -169,7 +169,7 @@
 
 						// Replace spaces in experiment name with hyphens
 						// for the url parameters
-						var experimentParam = thisExDashboard.paramString(this.gsx$experimentcodename.$t);
+						var experimentParam = thisExDashboard.paramString(this.gsx$testcodename.$t);
 						var experimentIdea = this.gsx$idea.$t;
 						var experimentStartDate = this.gsx$startdate.$t;
 						var tweetableHeadline = this.gsx$tweetableheadline.$t + '&nbsp;&rarr;';
@@ -178,7 +178,7 @@
 						    idea: experimentIdea,
 						    bigbet: this.gsx$bigbet.$t,
 						    tweetableheadline: tweetableHeadline,
-						    experimentcodename: this.gsx$experimentcodename.$t,
+						    testcodename: this.gsx$testcodename.$t,
 						    experimentparam: experimentParam,
 						    stage: stageText,
 						    startdate: experimentStartDate,
@@ -374,7 +374,7 @@
 
 			items.push('<thead>');
 			items.push('<th>Ideas</th>');
-		    items.push('<th>Experiments</th>');
+		    items.push('<th>Tests</th>');
 			items.push('</thead>');
 		    items.push('<tbody>');
 
@@ -670,7 +670,7 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == experimentParam ) {
+					if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == experimentParam ) {
 
 						entryVars = {
 						    tweetableheadline: this.gsx$tweetableheadline.$t,
@@ -711,12 +711,12 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam ) {
+					if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == utmParam ) {
 						
 						var folderLink = '';
 
 						/*-- Set the experiment name for the h1 --*/
-						//experimentName = this.gsx$experimentcodename.$t;
+						//experimentName = this.gsx$testcodename.$t;
 
 						/*-- Create a list of document links --*/
 						var documentList = thisExDashboard.listLinks(this.gsx$documents.$t);
@@ -724,7 +724,7 @@
 						/*-- Create a list of blog links --*/
 						var blogList = thisExDashboard.listLinks(this.gsx$blogposts.$t);
 
-						/*-- Create a link to the experimentcodename folder --*/
+						/*-- Create a link to the testcodename folder --*/
 						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
 
 						entryVars = {
@@ -770,7 +770,7 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam  ) {
+					if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == utmParam  ) {
 
 						entryVars = {
 						    nextsteps: thisExDashboard.insertBreaks(this.gsx$nextsteps.$t, false),
@@ -862,7 +862,7 @@
 						
 						var folderLink = '';
 
-						/*-- Create a link to the experimentcodename folder --*/
+						/*-- Create a link to the testcodename folder --*/
 						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
 
 						entryVars = {
@@ -952,7 +952,7 @@
 						var display = "block";
 
 						// If idea matches idea UTM param
-						if ( thisExDashboard.paramString(this.gsx$experimentcodename.$t) == utmParam ) {
+						if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == utmParam ) {
 
 							// If imageUrl exists
 							if ( imageUrl != '' ) {
@@ -967,7 +967,7 @@
 
 							entryVars = {
 								categorytitle: categoryTitle,
-								title: this.gsx$experimentcodename.$t,
+								title: this.gsx$testcodename.$t,
 								viewsheeturl: thisExDashboard.workingUrl,
 								imageurl: imageUrl,
 								display: display,

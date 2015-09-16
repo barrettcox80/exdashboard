@@ -10,8 +10,6 @@
 /*-------------------------------------------------
     0.0 - Imports
 -------------------------------------------------*/
-/* Google Fonts (Loved by the King) */
-@import url('http://fonts.googleapis.com/css?family=Loved+by+the+King');
 /* Google Fonts (Roboto) */
 @import url('//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic');
 /*- End - 0.0 - Imports -------------------------*/
@@ -31,17 +29,19 @@ body {
 }
 .ed-table-dashboard {
   /*display: block;*/
-  border-spacing: 10px;
+  /*border-spacing: 10px;*/
   border-collapse: separate;
   box-sizing : border-box;
-  margin-left : -10px; /*-- Same as -(border-spacing) --*/
+  /*margin-left : -10px;*/ /*-- Same as -(border-spacing) --*/
   -webkit-font-smoothing: antialiased; /*-- Fixes webkit font aliasing issue during CSS transitions --*/
+  margin: 0 auto;
 }
 .ed-table-dashboard tr > th {
   background-color : transparent;
   border : none;
   text-transform : uppercase;
   text-align : left;
+  padding : 15px 0;
 }
 .ed-table-dashboard tr > td {
   background-color : transparent;
@@ -69,13 +69,9 @@ body {
   white-space : normal;
   float: left;
 }
-/*
-.ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container > .ed-experiments-cell-container-inner {
-  position : absolute;
-  right : 0;
+#toggle-ideas {
+  margin: 0 0 20px 0;
 }
-*/
-
 /*- End - 1.1 ------------------*/
 
 
@@ -85,6 +81,15 @@ body {
 .ed-table-dashboard {
   width : 549px;
 }
+.ed-table-dashboard tr > td.ed-idea,
+.ed-table-dashboard .ed-experiment {
+  height : 121px;
+  padding-bottom: 15px; /* Room for the scroll bar */
+}
+.ed-table-dashboard .ed-cell-container {
+  height : 100%;
+  overflow : hidden;
+}
 .ed-table-dashboard tr > td.ed-experiments-cell {
   height : 100%;
 }
@@ -93,17 +98,16 @@ body {
 }
 .ed-table-dashboard .ed-experiment {
   width : 210px;
-  height : 121px;
+  padding-left : 12px;
 }
 .ed-table-dashboard .ed-experiment > a {
   width : 100%;
   height : 100%;
 }
 .ed-table-dashboard tr > th:first-child,
-.ed-table-dashboard tr > td.ed-td-idea-full > a,
-.ed-table-dashboard tr > td.ed-td-idea-empty > a {
+.ed-table-dashboard tr > td.ed-idea > a {
   width : 234px;
-  height : 119px;
+  height : 120px;
 }
 .ed-table-dashboard tr > th,
 .ed-table-dashboard tr > th:first-child {
@@ -134,8 +138,7 @@ body {
   display : block;
   position : relative;
   box-sizing : border-box;
-  padding : 20px;
-  overflow : hidden;
+  /*overflow : hidden;*/
   text-decoration : none;
   color : #333;
   -webkit-transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
@@ -143,19 +146,50 @@ body {
   -o-transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
   transition: background-color 500ms ease-out 0s, color 500ms ease-out 0s;
 }
+.ed-table-dashboard tr > td > a .ed-cell-container,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container {
+  height : 100%;
+  padding : 20px;
+  box-sizing : border-box;
+}
 .ed-table-dashboard tr > td > a > h3,
-.ed-table-dashboard .ed-experiment > a > h3 {
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h3 {
   margin-top : 0;
   margin-bottom : 0;
 }
-.ed-table-dashboard tr > td.ed-td-idea-full > a > h3,
-.ed-table-dashboard tr > td.ed-td-idea-empty > a > h3 {
+.ed-table-dashboard tr > td.ed-td-idea-full > a .ed-cell-container > h3,
+.ed-table-dashboard tr > td.ed-td-idea-empty > a .ed-cell-container > h3 {
   padding-right : 10px;
+}
+.ed-table-dashboard tr > td.ed-idea > a {
+  margin-right : 52px;
 } 
-.ed-table-dashboard tr > td.ed-td-idea-full > a,
-.ed-table-dashboard tr > td.ed-td-idea-empty > a {
-  padding-right : 30px;
-} 
+.ed-table-dashboard tr > td.ed-idea > a:after {
+  content : '';
+  position : absolute;
+  top : 0;
+  right : -40px;
+  -webkit-transition: border-color 500ms ease-out 0s, color 500ms ease-out 0s;
+  -moz-transition: border-color 500ms ease-out 0s, color 500ms ease-out 0s;
+  -o-transition: border-color 500ms ease-out 0s, color 500ms ease-out 0s;
+  transition: border-color 500ms ease-out 0s, color 500ms ease-out 0s;
+}
+.ed-table-dashboard tr > td.ed-td-idea-full > a:after {
+  border : 60px solid transparent;
+  border-left  : 40px solid #b9e5fb;
+  border-right : none;
+}
+.ed-table-dashboard tr > td.ed-td-idea-empty > a:after {
+  border : 60px solid transparent;
+  border-left  : 40px solid #e2f4fd;
+  border-right : none;
+}
+.ed-table-dashboard tr > td.ed-td-idea-full > a:hover:after,
+.ed-table-dashboard tr > td.ed-td-idea-empty > a:hover:after {
+  border : 60px solid transparent;
+  border-left  : 40px solid #333;
+  border-right : none;
+}
 .ed-table-dashboard tr > td > a:active,
 .ed-table-dashboard tr > td > a:hover,
 .ed-table-dashboard tr > td > a:visited,
@@ -165,55 +199,40 @@ body {
   text-decoration : none;
   color : #333;
 }
-
-
 /*- End - 1.4 ------------------*/
 
 /*--------------------------------
     1.7 - Fonts
 --------------------------------*/
-/*
-.ed-table-dashboard tr > td > a > h3 { 
-  font-size : 16px;
-  line-height : 1.3em;
-  font-family: 'Loved by the King', cursive;
+.ed-table-dashboard tr > td > a .ed-cell-container > h3,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h3 {
   font-weight : 400;
-}
-*/
-.ed-table-dashboard tr > td > a > h3,
-.ed-table-dashboard .ed-experiment > a > h3 {
-  font-weight : 400;
-  font-size : 100%;
+  font-size : 90%;
   line-height : 1.25;
 }
-.ed-table-dashboard tr > td.ed-idea > a > h4,
-.ed-table-dashboard .ed-experiment > a > h4.ed-stage,
-.ed-table-dashboard .ed-experiment > a > h4.ed-next {
+.ed-table-dashboard tr > td.ed-idea > a .ed-cell-container > h4,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-experiment-name,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-stage,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-next {
   font-size : 75%;
   line-height : 1.3em;
   padding-right : 20px;
-}
-.ed-table-dashboard tr > td.ed-idea > a > h4,
-.ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
-.ed-table-dashboard .ed-experiment > a > h4.ed-stage,
-.ed-table-dashboard .ed-experiment > a > h4.ed-next {
   font-weight : 600;
+  letter-spacing: 0.04em;
 }
-.ed-table-dashboard tr > td.ed-idea > a > h4,
-.ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
-.ed-table-dashboard .ed-experiment > a > h4.ed-stage {
-  font-size : 75%;
+.ed-table-dashboard tr > td.ed-idea > a .ed-cell-container > h4,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-experiment-name,
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-stage { 
   text-transform : uppercase;
   margin : 0 0 8px 0;
 }
-.ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name {
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-experiment-name {
   margin : 0 0 5px 0;
 }
-.ed-table-dashboard .ed-experiment > a > h4.ed-next {
-  font-size: 100%;
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-next {
   margin: 8px 0;
 }
-.ed-table-dashboard tr > td > a > p {
+.ed-table-dashboard tr > td > a .ed-cell-container > p {
   line-height : 1.5em;
   margin : 4px 0;
 }
@@ -261,8 +280,8 @@ body {
 /*--------------------------------
     1.9 - Stage & What's New
 --------------------------------*/
-.ed-table-dashboard tr > td > a > h4.ed-stage,
-.ed-table-dashboard tr > td > a > h4.ed-next {
+.ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-stage,
+.ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-next {
   position : relative;
   margin : 0;
 }
@@ -274,14 +293,12 @@ body {
 --------------------------------*/
 .ed-table-dashboard tr > td.ed-td-idea-full > a,
 .ed-table-dashboard tr > td.ed-td-idea-empty > a {
-  background-image : url("../images/bg-frame-idea.png");
   background-size : 100% auto;
   background-position : 0 -1px;
   background-repeat : no-repeat;
 }
 
 .ed-table-dashboard .ed-experiment > a {
-  background-image : url("../images/bg-frame-experiment.png");
   background-size : 100% auto;
   background-position : 0 -1px;
   background-repeat : no-repeat;
@@ -312,18 +329,18 @@ body {
 .ed-table-dashboard .ed-experiment > a:active {
   background-color : #333;
 }
-.ed-table-dashboard tr > td > a:hover > h3,
-.ed-table-dashboard tr > td > a:active > h3,
-.ed-table-dashboard tr > td > a:hover > h4,
-.ed-table-dashboard tr > td > a:active > h4,
-.ed-table-dashboard tr > td > a:hover > p,
-.ed-table-dashboard tr > td > a:active > p,
-.ed-table-dashboard .ed-experiment > a:hover > h3,
-.ed-table-dashboard .ed-experiment > a:active > h3,
-.ed-table-dashboard .ed-experiment > a:hover > h4,
-.ed-table-dashboard .ed-experiment > a:active > h4,
-.ed-table-dashboard .ed-experiment > a:hover > p,
-.ed-table-dashboard .ed-experiment > a:active > p {
+.ed-table-dashboard tr > td > a:hover .ed-cell-container > h3,
+.ed-table-dashboard tr > td > a:active .ed-cell-container > h3,
+.ed-table-dashboard tr > td > a:hover .ed-cell-container > h4,
+.ed-table-dashboard tr > td > a:active .ed-cell-container > h4,
+.ed-table-dashboard tr > td > a:hover .ed-cell-container > p,
+.ed-table-dashboard tr > td > a:active .ed-cell-container > p,
+.ed-table-dashboard .ed-experiment > a:hover .ed-cell-container > h3,
+.ed-table-dashboard .ed-experiment > a:active .ed-cell-container > h3,
+.ed-table-dashboard .ed-experiment > a:hover .ed-cell-container > h4,
+.ed-table-dashboard .ed-experiment > a:active .ed-cell-container > h4,
+.ed-table-dashboard .ed-experiment > a:hover .ed-cell-container > p,
+.ed-table-dashboard .ed-experiment > a:active .ed-cell-container > p {
   color : #fff;
 }
 /*- End - 1.10 -----------------*/
@@ -332,10 +349,10 @@ body {
 /*--------------------------------
     1.12 - Help Needed icon
 --------------------------------*/
-.ed-table-dashboard .ed-experiment > a > .ed-help {
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > .ed-help {
   display : none;
 }
-.ed-table-dashboard .ed-experiment > a > .ed-help.needed {
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > .ed-help.needed {
   display : block;
   position : absolute;
   right : 15px;
@@ -347,7 +364,7 @@ body {
   -moz-border-radius : 50%;
   -webkit-border-radius : 50%;
 }
-.ed-table-dashboard .ed-experiment > a > .ed-help.needed:hover:after {
+.ed-table-dashboard .ed-experiment > a .ed-cell-container > .ed-help.needed:hover:after {
   content: attr(data-after);
   display : block;
   position : absolute;
@@ -409,7 +426,6 @@ a#ed-dashboard-feedback:hover:after {
 }
 #ed-widget table th {
   font-size : 22px;
-  font-family: 'Loved by the King', cursive;
   font-weight : 400;
   vertical-align : top;
 }
@@ -513,7 +529,6 @@ a#ed-dashboard-feedback:hover:after {
   text-align: center;
 }
 .ed-header h2 {
-  font-family : 'Loved by the King', cursive;
   font-size : 200%;
 }
 .ed-header h4 {
@@ -586,8 +601,8 @@ a#ed-dashboard-feedback:hover:after {
       3.1 - Basic table styling
   --------------------------------*/
   .ed-table-dashboard {
-    border-spacing : 15px;
-    margin-left : -15px; /*-- Same as -(border-spacing) --*/
+    /*border-spacing : 15px;*/
+    /*margin-left : -15px;*/ /*-- Same as -(border-spacing) --*/
   }
   /*- End - 3.1 ------------------*/
 
@@ -608,7 +623,7 @@ a#ed-dashboard-feedback:hover:after {
   .ed-table-dashboard tr > th:first-child,
   .ed-table-dashboard tr > td.ed-td-idea-full > a,
   .ed-table-dashboard tr > td.ed-td-idea-empty > a {
-    width : 392px;
+    width : 330px;
     height : 210px;
   }
   .ed-table-dashboard tr > th,
@@ -617,23 +632,45 @@ a#ed-dashboard-feedback:hover:after {
   }
   /*- End - 3.1 ------------------*/
 
+  /*--------------------------------
+      3.4 - Cell dimensions
+  --------------------------------*/
+  .ed-table-dashboard tr > td.ed-td-idea-full > a:after {
+    border : 105px solid transparent;
+    border-left  : 40px solid #b9e5fb;
+    border-right : none;
+  }
+  .ed-table-dashboard tr > td.ed-td-idea-empty > a:after {
+    border : 105px solid transparent;
+    border-left  : 40px solid #e2f4fd;
+    border-right : none;
+  }
+  .ed-table-dashboard tr > td.ed-td-idea-full > a:hover:after,
+  .ed-table-dashboard tr > td.ed-td-idea-empty > a:hover:after {
+    border : 105px solid transparent;
+    border-left  : 40px solid #333;
+    border-right : none;
+  }
+  /*- End - 3.4 ------------------*/
 
   /*--------------------------------
       3.7 - Fonts
   --------------------------------*/
-  .ed-table-dashboard tr > td > a > h3,
-  .ed-table-dashboard .ed-experiment > a > h3 { 
-    font-size : 110%;
+  .ed-table-dashboard tr > td > a .ed-cell-container > h3,
+  .ed-table-dashboard .ed-experiment > a .ed-cell-container > h3 { 
+    font-size : 100%;
   }
-  .ed-table-dashboard tr > td.ed-idea > a > h4,
-  .ed-table-dashboard .ed-experiment > a > h4.ed-experiment-name,
-  .ed-table-dashboard .ed-experiment > a > h4.ed-stage,
-  .ed-table-dashboard .ed-experiment > a > h4.ed-next,
-  .ed-table-dashboard tr > td > a > p {
+  .ed-table-dashboard tr > td.ed-idea > a .ed-cell-container > h4,
+  .ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-experiment-name,
+  .ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-stage,
+  .ed-table-dashboard tr > td > a .ed-cell-container > p {
     font-size : 75%;
     line-height : 1.3em;
   }
-  .ed-table-dashboard tr > td > a > p {
+  .ed-table-dashboard .ed-experiment > a .ed-cell-container > h4.ed-next {
+    font-size: 100%;
+  }
+  .ed-table-dashboard tr > td > a .ed-cell-container > p {
     line-height : 1.5em;
   }
   /*- End - 3.7 ------------------*/
@@ -642,19 +679,25 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.8 - Hide/Show
   --------------------------------*/
-  .ed-table-dashboard tr > td > a > p { 
+  /*
+  .ed-table-dashboard tr > td > a .ed-cell-container > p { 
     display : block; 
   }
-  
+  */
+
   /* Show What's Next on all experiments */
-  .ed-table-dashboard tr > td > a > h4.ed-next {
+  /*
+  .ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-next {
     display : block;
   }
+  */
+
   /* Hide What's Next on the completed experiments */
-  .ed-table-dashboard tr > td.ed-td-stage-complete > a > h4.ed-next {
+  /*
+  .ed-table-dashboard tr > td.ed-td-stage-complete > a .ed-cell-container > h4.ed-next {
     display : none;
   }
-
+  */
   /*- End - 3.8 ------------------*/
 
 
@@ -662,16 +705,16 @@ a#ed-dashboard-feedback:hover:after {
       3.9 - Stage & What's New
   --------------------------------*/
   /* Absolutely position the Stage and What's Next text */
-  .ed-table-dashboard tr > td > a > h4.ed-stage,
-  .ed-table-dashboard tr > td > a > h4.ed-next {
+  .ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-stage,
+  .ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-next {
     position : absolute;
     left : 20px;
     white-space : nowrap; /* Prevent text from wrapping */
   }
-  .ed-table-dashboard tr > td > a > h4.ed-stage {
+  .ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-stage {
     bottom : 37px;
   }
-  .ed-table-dashboard tr > td > a > h4.ed-next {
+  .ed-table-dashboard tr > td > a .ed-cell-container > h4.ed-next {
     bottom : 14px;
   }> 
   /*- End - 3.9 ------------------*/
@@ -680,7 +723,7 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       3.12 - Help Needed icon
   --------------------------------*/
-  .ed-table-dashboard .ed-experiment > a > .ed-help.needed {
+  .ed-table-dashboard .ed-experiment > a .ed-cell-container > .ed-help.needed {
     right : 15px;
     bottom : 25px;
     width : 15px;
@@ -700,8 +743,8 @@ a#ed-dashboard-feedback:hover:after {
       4.1 - Basic table styling
   --------------------------------*/
   .ed-table-dashboard {
-    border-spacing : 15px;
-    margin-left : -15px; /*-- Same as -(border-spacing) --*/
+    /*border-spacing : 15px;*/
+    /*margin-left : -15px;*/ /*-- Same as -(border-spacing) --*/
   }
   /*- End - 4.1 ------------------*/
   
@@ -723,7 +766,7 @@ a#ed-dashboard-feedback:hover:after {
   /*--------------------------------
       4.8 - Help Needed icon
   --------------------------------*/
-  .ed-table-dashboard tr > td > a > .ed-help.needed {
+  .ed-table-dashboard tr > td > a .ed-cell-container > .ed-help.needed {
     right : 15px;
     bottom : 15px;
     width : 20px;
