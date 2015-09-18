@@ -201,7 +201,7 @@ Experiment Dashboard is designed to work across 3 pages:
 
 ####idea_sheet_pos
 
-Optional parameter to change the subsheet position of the Ideas sub sheet. Default is '3'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet 
+Optional parameter to change the subsheet position of the Ideas sub sheet. Default is '3'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet that is the default subsheet for idea API requests. 
 
 #####Example
 
@@ -219,7 +219,7 @@ var dashboard = new $.exDashboard(params);
 
 ####experiment_sheet_pos
 
-Optional parameter to change the subsheet position of the Experiments sub sheet. Default is '4'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet 
+Optional parameter to change the subsheet position of the Experiments sub sheet. Default is '4'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet that is the default subsheet for experiment API requests. 
 
 #####Example
 
