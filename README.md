@@ -208,7 +208,7 @@ Optional parameter to change the subsheet position of the Ideas sub sheet. Defau
 ```javascript
 
 var params = { sheet_id             : '11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI',   
-			   idea_sheet_pos       : '7', // Default is '3'
+			   idea_sheet_pos       : '7', // Optional, Default is '3'
                dashboard_page_url   : 'dashboard.html',
                experiment_page_url  : 'experiment.html',
 		       idea_page_url        : 'idea.html' };
@@ -219,14 +219,14 @@ var dashboard = new $.exDashboard(params);
 
 ####experiment_sheet_pos
 
-Optional parameter to change the subsheet position of the Ideas sub sheet. Default is '3'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet 
+Optional parameter to change the subsheet position of the Experiments sub sheet. Default is '4'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet 
 
 #####Example
 
 ```javascript
 
 var params = { sheet_id             : '11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI',   
-			   experiment_sheet_pos : '8', // Default is '4'
+			   experiment_sheet_pos : '8', // Optional, Default is '4'
                dashboard_page_url   : 'dashboard.html',
                experiment_page_url  : 'experiment.html',
 		       idea_page_url        : 'idea.html' };
