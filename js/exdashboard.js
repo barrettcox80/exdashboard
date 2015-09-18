@@ -28,8 +28,8 @@
 	    this.sheetID = params.sheet_id;
 
 	    // The position (left to right) of the Idea and Experiment sub sheets
-	    this.experimentSheetPos = params.experiment_sheet_pos;
-	    this.ideaSheetPos       = params.idea_sheet_pos;
+	    this.ideaSheetPos       = params.idea_sheet_pos != null ? params.idea_sheet_pos : '3';
+	    this.experimentSheetPos = params.experiment_sheet_pos != null ? params.experiment_sheet_pos : '4';
 	    
 	    // Arrays
 	    this.ideas         = [];
@@ -38,9 +38,9 @@
 	    this.inactiveIdeas = [];
 
 	    // Construct urls for the spreadsheets
-		this.ideasUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.ideaSheetPos + '/public/values?alt=json';
+		this.ideasUrl       = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.ideaSheetPos + '/public/values?alt=json';
 		this.experimentsUrl = 'https://spreadsheets.google.com/feeds/list/' + this.sheetID + '/' + this.experimentSheetPos + '/public/values?alt=json';
-		this.workingUrl ='https://docs.google.com/spreadsheets/d/'+ this.sheetID;
+		this.workingUrl     = 'https://docs.google.com/spreadsheets/d/' + this.sheetID;
 
 		// Page urls
 		this.dashboardPageUrl  = params.dashboard_page_url;
@@ -70,28 +70,24 @@
 
 						// Replace spaces in experiment name with hyphens
 						// for the url parameters
-						var bigideaParam = thisExDashboard.paramString(this.gsx$bigidea.$t);
-						var bigBetTruncated = thisExDashboard.trimText(this.gsx$bigbet.$t, 50);
-						var tweetableHeadline = this.gsx$tweetableheadline.$t + '&nbsp;&rarr;';
+						var ideaNameParam = thisExDashboard.paramString(this.gsx$ideaname.$t);
+						//var bigBetTruncated = thisExDashboard.trimText(this.gsx$bigbet.$t, 50);
+						var HMW = this.gsx$hmw.$t + '&nbsp;&rarr;';
 
 						ideaVars = {
-						    bigidea: this.gsx$bigidea.$t,
-						    tweetableheadline: tweetableHeadline,
-						    bigideaparam: bigideaParam,
-						    imageurl: this.gsx$imageurl.$t,
-						    createddate: this.gsx$createddate.$t,
+							ideaid: this.gsx$ideaid.$t,
+						    ideaname: this.gsx$ideaname.$t,
+						    ideanameparam: ideaNameParam,
+						    coverimage: this.gsx$coverimage.$t,
+						    created: this.gsx$created.$t,
 						    status: this.gsx$status.$t, 
-						    idea: this.gsx$idea.$t,
-						    outcome: this.gsx$outcome.$t,
-						    bigbet: this.gsx$bigbet.$t,
-						    bigbettruncated: bigBetTruncated,
-						    assumptions: this.gsx$assumptions.$t,
-						    questions: this.gsx$questions.$t,
-						    folderurl: this.gsx$folderurl.$t,
-						    ststrategyatus: this.gsx$strategy.$t,
+						    desiredoutcome: this.gsx$desiredoutcome.$t,
 						    emptyclass: 'ed-td-idea-empty', // Default to empty
 						    lastexperimentdate: '',
-						    detailpageurl: thisExDashboard.ideaPageUrl
+						    detailpageurl: thisExDashboard.ideaPageUrl,
+						    insights: this.gsx$insights.$t,
+						    hmw: HMW,
+						    selectedidea: this.gsx$selectedidea.$t
 						};
 
 						// Push onto ideas[] array
@@ -128,38 +124,28 @@
 				 	// Create a JSON object for each idea and add it to an array
 					$.each( data.feed.entry, function() {
 
-						var stageClass = '';
-						var stageNum = '';
-						var stageText = this.gsx$stage.$t;
+						var stageClass = 'ed-td-stage-scheduled';
 						var helpClass = 'ed-help';
-						var endDate = this.gsx$enddate.$t;
-						var endDateObject = thisExDashboard.parseDate(endDate);
-						var mvpTruncated = thisExDashboard.trimText(this.gsx$mvp.$t, 50);
+						var experimentStart = this.gsx$start.$t;
+						var experimentEnd = this.gsx$end.$t;
+						var endObject = thisExDashboard.parseDate(experimentEnd);
 						var today = new Date();
+						var tweetableHeadline = this.gsx$tweetableheadline.$t + '&nbsp;&rarr;';
 
-						// CSS class and number for stage
-						if (stageText == 'Design') {
-							stageClass = 'ed-td-stage-design';
-							stageNum   = ' 1';
-						} else if (stageText == 'Running') {
-							stageClass = 'ed-td-stage-running';
-							stageNum   = ' 2';
-						} else if (stageText == 'Debrief') {
-							stageClass = 'ed-td-stage-debrief';
-							stageNum   = ' 3';
-						} else {
-							stageClass = 'ed-td-stage-complete';
-							stageNum   = '';
-						}
+						// If date is valid
+						if (thisExDashboard.isValidDate(endObject) != false) {
 
-						// If an endDate is valid, and endDate is today or earlier,
-						// then use a different CSS class
-						if (thisExDashboard.isValidDate(endDateObject) != false) {
-							if (thisExDashboard.parseDate(endDate) <= today) {
+							// If end date is today or earlier
+							if (thisExDashboard.parseDate(experimentEnd) <= today) {
 								stageClass = 'ed-td-stage-complete';
-								stageText  = 'Done';
-								stageNum   = '';
 
+							// Else if start date has not happened yet
+							} else if (thisExDashboard.parseDate(experimentStart) > today) {
+								stageClass = 'ed-td-stage-scheduled';
+
+							// Else today must be between start & end dates, test is running
+							} else {
+								stageClass = 'ed-td-stage-running';
 							}
 						}
 
@@ -169,27 +155,23 @@
 
 						// Replace spaces in experiment name with hyphens
 						// for the url parameters
-						var experimentParam = thisExDashboard.paramString(this.gsx$testcodename.$t);
-						var experimentIdea = this.gsx$idea.$t;
-						var experimentStartDate = this.gsx$startdate.$t;
-						var tweetableHeadline = this.gsx$tweetableheadline.$t + '&nbsp;&rarr;';
+						var experimentParam = thisExDashboard.paramString(this.gsx$codename.$t);
+						//var experimentIdea = this.gsx$idea.$t;
+						//var experimentStart = this.gsx$start.$t;
+						
 
 						experimentVars = {
-						    idea: experimentIdea,
-						    bigbet: this.gsx$bigbet.$t,
+							ideaid: this.gsx$ideaid.$t,
 						    tweetableheadline: tweetableHeadline,
-						    testcodename: this.gsx$testcodename.$t,
+						    codename: this.gsx$codename.$t,
 						    experimentparam: experimentParam,
-						    stage: stageText,
-						    startdate: experimentStartDate,
-						    enddate: endDate,
-						    nextsteps: this.gsx$nextsteps.$t,
-						    mvp: this.gsx$mvp.$t,
-						    mvptruncated: mvpTruncated,
+						    start: experimentStart,
+						    end: experimentEnd,
 						    stagecssclass: stageClass,
-						    stagenum : stageNum,
 						    helpclass : helpClass,
-						    detailpageurl: thisExDashboard.experimentPageUrl
+						    detailpageurl: thisExDashboard.experimentPageUrl,
+						    success: this.gsx$success.$t,
+						    calendarid: this.gsx$calendarid.$t
 						};
 
 						// Add experiemnt to the experiments array
@@ -290,7 +272,7 @@
 
 			$.each( objectArrayRef, function() {
 
-				var bigidea = this.bigidea;
+				var ideaId = this.ideaid;
 				var emptyClass = 'ed-td-idea-empty' // Default to empty;
 				var matchingExperiments = [];
 				var experimentCells = [];
@@ -299,7 +281,7 @@
 
 			    // Add each experiments for this idea to a cell
 			    $.each( thisExDashboard.experiments, function() {
-			    	if (this.idea == bigidea) {
+			    	if (this.ideaid == ideaId) {
 
 			    		// 1 or more experiments exist for this idea, so use full class name for the Idea
 			    		emptyClass = 'ed-td-idea-full';
@@ -315,7 +297,6 @@
 			    	// Add the experiment cell to the row
 				    exTemplate = $('#experimentTableCell').html();
 				    experimentCells += Mustache.to_html(exTemplate, this);
-
 				});
 
 
@@ -367,7 +348,7 @@
 			var cell      = '';
 			var template  = '';
 			var exTemplate = '';
-			//var templateContainerID = 'mustache-templates';
+			// var templateContainerID = 'mustache-templates';
 
 			// Sort ideas by their most recent experiment
 			thisExDashboard.getRecentDates();
@@ -429,9 +410,12 @@
 		    	descending order
 		-----------------------------------------------*/
 		this.sortExperimentsDesc = function (a,b) {
-			if (a.startdate > b.startdate)
+			aStart = new Date(a.start);
+			bStart = new Date(b.start);
+
+			if (aStart > bStart)
 		    	return -1;
-			if (a.startdate < b.startdate)
+			if (aStart < bStart)
 		    	return 1;
 		  	return 0;
 		};
@@ -445,15 +429,15 @@
 		this.findRecentDates = function (ideaArrayRef) {
 			$.each( ideaArrayRef, function() {
 												
-				var bigidea = this.bigidea;
+				var ideaId = this.ideaid;
 				var maxDate = '';
 
 				// Find the experiment(s) for this idea
 				$.each( thisExDashboard.experiments, function() {
 
-			    	if (this.idea == bigidea) {
+			    	if (this.ideaid == ideaId) {
 
-			    		var otherDate = thisExDashboard.parseDate(this.startdate);
+			    		var otherDate = thisExDashboard.parseDate(this.start);
 
 			    		if (maxDate == '') {
 			    			maxDate = otherDate;
@@ -622,30 +606,30 @@
 		    	data, and adds the html to the DOM
 		-----------------------------------------------*/
 		this.populateTemplate = function(elementID, entryVars, templateId) {
-				//var template      = '';
-				var templateHTML  = '';
-				//var entryVars     = {};
-				//var utmParam = thisExDashboard.getUrlVars()['ex'];
-				//var experimentName = '';
+			//var template      = '';
+			var templateHTML  = '';
+			//var entryVars     = {};
+			//var utmParam = thisExDashboard.getUrlVars()['ex'];
+			//var experimentName = '';
 
-				// Load the mustache templates
-				$( '<div/>', { 'id': 'mustache-templates'})
-					.appendTo( 'body' )
-					.css('visibility','hidden')
-					.load(thisExDashboard.templateURL, function() {
+			// Load the mustache templates
+			$( '<div/>', { 'id': 'mustache-templates'})
+				.appendTo( 'body' )
+				.css('visibility','hidden')
+				.load(thisExDashboard.templateURL, function() {
 
-					// Templates have loaded. Now...
+				// Templates have loaded. Now...
 
-					// Populate the template
-					template = $(templateId).html();
-					templateHTML = Mustache.to_html(template, entryVars);
+				// Populate the template
+				template = $(templateId).html();
+				templateHTML = Mustache.to_html(template, entryVars);
 
-					// Insert HTML into the DOM
-					$(elementID).html(templateHTML);
+				// Insert HTML into the DOM
+				$(elementID).html(templateHTML);
 
-					// Break the .each loop
-					return false;
-				});
+				// Break the .each loop
+				return false;
+			});
 		};
 		/*- populateTemplate --------------------------*/
 
@@ -670,14 +654,12 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == experimentParam ) {
+					if ( thisExDashboard.paramString(this.gsx$codename.$t) == experimentParam ) {
 
 						entryVars = {
 						    tweetableheadline: this.gsx$tweetableheadline.$t,
-						    mvp: thisExDashboard.insertBreaks(this.gsx$mvp.$t, false),
-						    hypothesis: thisExDashboard.insertBreaks(this.gsx$hypothesis.$t, false),
-						    mvpdesign: thisExDashboard.insertBreaks(this.gsx$mvpdesign.$t, false),
-						    keylearnings: thisExDashboard.insertBreaks(this.gsx$keylearnings.$t, false)
+						    design: thisExDashboard.insertBreaks(this.gsx$design.$t, false),
+						    insights: thisExDashboard.insertBreaks(this.gsx$insights.$t, false)
 						};
 
 					} 
@@ -711,31 +693,25 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == utmParam ) {
+					if ( thisExDashboard.paramString(this.gsx$codename.$t) == utmParam ) {
 						
-						var folderLink = '';
-
-						/*-- Set the experiment name for the h1 --*/
-						//experimentName = this.gsx$testcodename.$t;
+						var folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+'view all'+'</a>';
 
 						/*-- Create a list of document links --*/
 						var documentList = thisExDashboard.listLinks(this.gsx$documents.$t);
 
 						/*-- Create a list of blog links --*/
-						var blogList = thisExDashboard.listLinks(this.gsx$blogposts.$t);
+						var blogList = thisExDashboard.listLinks(this.gsx$posts.$t);
 
-						/*-- Create a link to the testcodename folder --*/
-						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
+						/*-- Add the folder link after the documents list --*/
+						documentList += folderLink;
 
 						entryVars = {
-						    stage: this.gsx$stage.$t,
-						    startdate: this.gsx$startdate.$t,
-						    enddate: this.gsx$enddate.$t,
-						    folderurl: folderLink,
+						    start: this.gsx$start.$t,
+						    end: this.gsx$end.$t,
 						    documents: documentList,
-						    blogposts: blogList,
+						    posts: blogList,
 						    team: this.gsx$team.$t,
-						    googlegroup: this.gsx$googlegroup.$t,
 						    contact: this.gsx$contact.$t
 						};
 
@@ -770,10 +746,9 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == utmParam  ) {
+					if ( thisExDashboard.paramString(this.gsx$codename.$t) == utmParam  ) {
 
 						entryVars = {
-						    nextsteps: thisExDashboard.insertBreaks(this.gsx$nextsteps.$t, false),
 			    			helpneeded: thisExDashboard.insertBreaks(this.gsx$helpneeded.$t, false)		 
 						};
 
@@ -807,27 +782,21 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
+					if ( thisExDashboard.paramString(this.gsx$ideaname.$t) == utmParam ) {
 
-						var folderLink = '';
+						//var folderLink = '';
 
 						/*-- Set the idea name for the h1 --*/
-						//ideaName = this.gsx$bigidea.$t;
+						//ideaName = this.gsx$ideaname.$t;
 
 						/*-- Create a link to the experiment folder --*/
-						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
+						//folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+this.gsx$folder.$t+'</a>';
 
 						entryVars = {
-							bigidea: this.gsx$bigidea.$t,
-							imageurl: this.gsx$imageurl.$t,
-						    createddate: this.gsx$createddate.$t,
-						    idea: this.gsx$idea.$t,
-						    outcome: thisExDashboard.insertBreaks(this.gsx$outcome.$t, false),
-						    bigbet: thisExDashboard.insertBreaks(this.gsx$bigbet.$t, false),
-						    assumptions: thisExDashboard.insertBreaks(this.gsx$assumptions.$t, false),
-						    questions: thisExDashboard.insertBreaks(this.gsx$questions.$t, false),
-						    folderurl: folderLink,
-						    strategy: this.gsx$strategy.$t,
+							ideaname: this.gsx$ideaname.$t,
+							coverimage: this.gsx$coverimage.$t,
+						    created: this.gsx$created.$t,
+						    desiredoutcome: thisExDashboard.insertBreaks(this.gsx$desiredoutcome.$t, false)
 						};
 					} 
 
@@ -858,17 +827,15 @@
 					/*--------------------------------------------------------
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
-					if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
+					if ( thisExDashboard.paramString(this.gsx$ideaname.$t) == utmParam ) {
 						
-						var folderLink = '';
+						//var folderLink = '';
 
-						/*-- Create a link to the testcodename folder --*/
-						folderLink = '<a href="'+this.gsx$folderurl.$t+'" target="_blank">'+this.gsx$folderurl.$t+'</a>';
+						/*-- Create a link to the codename folder --*/
+						//folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+this.gsx$folder.$t+'</a>';
 
 						entryVars = {
-						    createddate: this.gsx$createddate.$t,
-						    folderurl: folderLink,
-						    strategy: this.gsx$strategy.$t,
+						    created: this.gsx$created.$t
 						};
 
 					} 
@@ -901,12 +868,12 @@
 
 					$.each( data.feed.entry, function() {
 
-						var imageUrl = this.gsx$imageurl.$t;
+						var imageUrl = this.gsx$coverimage.$t;
 						var htmlString = '';
 						var display = "block";
 
 						// If idea matches idea UTM param
-						if ( thisExDashboard.paramString(this.gsx$bigidea.$t) == utmParam ) {
+						if ( thisExDashboard.paramString(this.gsx$ideaname.$t) == utmParam ) {
 							
 							// If imageUrl exists
 							if ( imageUrl != '' ) {
@@ -921,9 +888,9 @@
 
 							entryVars = {
 								categorytitle: categoryTitle,
-								title: this.gsx$bigidea.$t,
+								title: this.gsx$ideaname.$t,
 								viewsheeturl: thisExDashboard.workingUrl,
-								imageurl: imageUrl,
+								coverimage: imageUrl,
 								display: display,
 							    dashboardurl: thisExDashboard.dashboardPageUrl
 
@@ -948,11 +915,11 @@
 
 					$.each( data.feed.entry, function() {
 
-						var imageUrl = this.gsx$coverimageurl.$t;
+						var imageUrl = this.gsx$coverimage.$t;
 						var display = "block";
 
 						// If idea matches idea UTM param
-						if ( thisExDashboard.paramString(this.gsx$testcodename.$t) == utmParam ) {
+						if ( thisExDashboard.paramString(this.gsx$codename.$t) == utmParam ) {
 
 							// If imageUrl exists
 							if ( imageUrl != '' ) {
@@ -967,9 +934,9 @@
 
 							entryVars = {
 								categorytitle: categoryTitle,
-								title: this.gsx$testcodename.$t,
+								title: this.gsx$codename.$t,
 								viewsheeturl: thisExDashboard.workingUrl,
-								imageurl: imageUrl,
+								coverimage: imageUrl,
 								display: display,
 							    dashboardurl: thisExDashboard.dashboardPageUrl
 							};

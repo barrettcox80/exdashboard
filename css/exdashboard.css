@@ -100,6 +100,9 @@ body {
   width : 210px;
   padding-left : 12px;
 }
+.ed-table-dashboard .ed-experiment:last-child {
+  padding-left : 0;
+}
 .ed-table-dashboard .ed-experiment > a {
   width : 100%;
   height : 100%;
@@ -310,11 +313,8 @@ body {
 .ed-table-dashboard tr > td.ed-td-idea-empty > a {
   background-color : #e2f4fd;
 }
-.ed-table-dashboard .ed-experiment.ed-td-stage-debrief > a {
-  background-color : #fbc6b4;
-}
-.ed-table-dashboard .ed-experiment.ed-td-stage-design > a {
-  background-color : #ffea88;
+.ed-table-dashboard .ed-experiment.ed-td-stage-scheduled > a {
+  background-color : #fdeb87;
 }
 .ed-table-dashboard .ed-experiment.ed-td-stage-running > a {
   background-color : #8cc751;
@@ -457,7 +457,7 @@ a#ed-dashboard-feedback:hover:after {
 .ed-main-content p {
   margin: 15px 0 40px 0;
 }
-.ed-main-content .key-learnings-container {
+.ed-main-content .insights-container {
   background-color: #cdfffe;
   padding: 15px;
   margin-left: -15px;

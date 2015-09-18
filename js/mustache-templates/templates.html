@@ -1,9 +1,9 @@
 <script id="ideaTableCell" type="text/template">
 	<td class="ed-idea {{emptyclass}}">
-		<a href="{{detailpageurl}}?idea={{bigideaparam}}">
+		<a href="{{detailpageurl}}?idea={{ideanameparam}}">
 			<div class="ed-cell-container">
-				<h4>{{bigidea}}</h4>
-				<h3>{{{tweetableheadline}}}</h3> <!-- Triple curly braces to output HTML -->
+				<h4>{{ideaname}}</h4>
+				<h3>{{{hmw}}}</h3> <!-- Triple curly braces to output HTML -->
 			</div>
 		</a>
 	</td>
@@ -13,8 +13,8 @@
 	<div class="ed-experiment {{stagecssclass}}">
 		<a href="{{detailpageurl}}?ex={{experimentparam}}">
 			<div class="ed-cell-container">
-				<h4 class="ed-experiment-name">{{testcodename}}</h4>
-				<h4 class="ed-stage">Stage{{stagenum}}: {{stage}}</h4>
+				<h4 class="ed-experiment-name">{{codename}}</h4>
+				<h4 class="ed-stage">{{start}} - {{end}}</h4>
 				<h3>{{{tweetableheadline}}}</h3> <!-- Triple curly braces to output HTML -->
 				<h4 class="ed-next">What&#39;s Next: {{nextsteps}}</h4>
 				<div class="{{helpclass}}" data-after="Help needed"></div>
@@ -31,7 +31,7 @@
 			<li><a href="{{dashboardurl}}">back to Dashboard</a></li>
 			<li><a href="{{viewsheeturl}}" target="_blank">view/update spreadsheet</a></li>
 		</ul>
-		<div class="ed-header-image" style="background-image: url({{imageurl}}); display: {{display}};"></div>
+		<div class="ed-header-image" style="background-image: url({{coverimage}}); display: {{display}};"></div>
 	</div>
 </script>
 
@@ -42,17 +42,13 @@
 		<h3>Idea</h3>
 		<p>{{idea}}</p>
 
-		<h3>Outcome</h3>
-		<p>{{{outcome}}}</p>
+		<h3>Desired Outcome</h3>
+		<p>{{{desiredoutcome}}}</p>
 
-		<h3>Big Bet Hypothesis<br><span class="subheading">(Idea + Outcome)</span></h3>
-		<p>{{{bigbet}}}</p>
-
-		<h3>Assumptions</h3>
-		<p>{{{assumptions}}}</p>
-
-		<h3>Questions</h3>
-		<p>{{{questions}}}</p>
+		<div class="insights-container">
+			<h3>Insights</h3>
+			<p>{{{insights}}}</p> <!-- Triple curly braces to output HTML -->
+		</div>
 	</div>
 </script>
 
@@ -60,16 +56,8 @@
 	<table class="ed-table-details ed-table-meta">
 		<tr>
 			<th scope="row">Created Date</th>
-			<td>{{createddate}}</td>
+			<td>{{created}}</td>
 		</tr>
-		<tr>
-			<th scope="row">Folder</th>
-			<td>{{{folderurl}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
-			<th scope="row">Strategy</th>
-			<td>{{{strategy}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>								
 	</table>
 </script>
 
@@ -79,18 +67,12 @@
 
 		<h1>{{tweetableheadline}}</h1>
 
-		<h3>MVP</h3>
-		<p>{{{mvp}}}</p> <!-- Triple curly braces to output HTML -->
+		<h3>Design</h3>
+		<p>{{{design}}}</p> <!-- Triple curly braces to output HTML -->
 
-		<h3>Hypothesis</h3>
-		<p>{{{hypothesis}}}</p> <!-- Triple curly braces to output HTML -->
-
-		<h3>MVP Design</h3>
-		<p>{{{mvpdesign}}}</p> <!-- Triple curly braces to output HTML -->
-
-		<div class="key-learnings-container">
-			<h3>Key Learnings</h3>
-			<p>{{{keylearnings}}}</p> <!-- Triple curly braces to output HTML -->
+		<div class="insights-container">
+			<h3>Insights</h3>
+			<p>{{{insights}}}</p> <!-- Triple curly braces to output HTML -->
 		</div>
 
 	</div>
@@ -100,36 +82,24 @@
 <script id="experimentMeta" type="text/template">
 	<table class="ed-table-details ed-table-meta">
 		<tr>
-			<th scope="row">Stage</th>
-			<td>{{stage}}</td>
+			<th scope="row">Start</th>
+			<td>{{start}}</td>
 		</tr>
 		<tr>
-			<th scope="row">Start Date</th>
-			<td>{{startdate}}</td>
-		</tr>
-		<tr>
-			<th scope="row">End Date</th>
-			<td>{{enddate}}</td>
+			<th scope="row">End</th>
+			<td>{{end}}</td>
 		</tr>
 		<tr>
 			<th scope="row">Documents</th>
 			<td>{{{documents}}}</td> <!-- Triple curly braces to output HTML -->
 		</tr>
 		<tr>
-			<th scope="row">Folder</th>
-			<td>{{{folderurl}}}</td> <!-- Triple curly braces to output HTML -->
-		</tr>
-		<tr>
 			<th scope="row">Blog Posts</th>
-			<td>{{{blogposts}}}</td> <!-- Triple curly braces to output HTML -->
+			<td>{{{posts}}}</td> <!-- Triple curly braces to output HTML -->
 		</tr>
 		<tr>
 			<th scope="row">Team</th>
 			<td>{{team}}</td>
-		</tr>
-		<tr>
-			<th scope="row">Google Group</th>
-			<td class="forced-wrap">{{googlegroup}}</td>
 		</tr>
 		<tr>
 			<th scope="row">Contact</th>
@@ -140,10 +110,6 @@
 
 <script id="experimentAlerts" type="text/template">
 	<table class="ed-table-details ed-table-alerts">
-		<tr>
-			<th scope="row">What&#39;s Next?</th>
-			<td>{{{nextsteps}}}</td>
-		</tr>
 		<tr>
 			<th scope="row">Help Needed</th>
 			<td>{{{helpneeded}}}</td>

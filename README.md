@@ -8,10 +8,10 @@ Experiment Dashboard requires jQuery and Mustache.js
 
 ### Create a Google Spreadsheet
 
-Experiment Dashboard was developed to read data from a Google spreadsheet. You must first create a spreadsheet in order use Experiment Dashboard. A sample spreadsheet can be found [here](http://).
+Experiment Dashboard was developed to read data from a Google spreadsheet. You must first create a spreadsheet in order use Experiment Dashboard. A sample spreadsheet can be found [here](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI). Please note that the sample spreadsheet actually contains 4 subsheets. The first two subsheets are editable, while the the 3rd and 4th subsheets are hidden, locked and transposed copies of the 1st and 2nd, respectively. The 3rd and 4th subsheets are where Experiment Dashboard actually makes its API calls, and they will automatically reflect any edits you make to the first two subsheets.
 
-1. Download the [sample spreadsheet](https://docs.google.com/spreadsheets/d/1fdn-MHi6SyjFE0hARBUZ-yNnn47ttib2IPXfBRJTBBw) and upload it to your own account.
-2. Make sure your spreadsheet is public. Go to Share -> Advanced, and change the access to "Public on the web".
+1. Make your own copy of the [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI)
+2. Make sure your spreadsheet is public. Go to Share -> Advanced, and change the access to "Anyone with the link can view" or "Public on the web".
 3. Also make sure that you publish your spreadsheet by going to File -> Publish to the web.
 
 ### Set up the pages
@@ -53,8 +53,6 @@ Experiment Dashboard is designed to work across 3 pages:
 
 				// Set up the dashboard params
 				var params = { sheet_id             : '', // Unique id of your Google spreadsheet
-				               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
-				               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
 				               dashboard_page_url   : '', // URL for your dashboard page
 				               experiment_page_url  : '', // URL for your experiment template page
 				               idea_page_url        : '' }; // URL for your experiment template page
@@ -109,8 +107,6 @@ Experiment Dashboard is designed to work across 3 pages:
 
 				// Set up the dashboard params
 				var params = { sheet_id             : '', // Unique id of your Google spreadsheet
-				               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
-				               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
 				               dashboard_page_url   : '', // URL for your dashboard page
 				               experiment_page_url  : '', // URL for your experiment template page
 				               idea_page_url        : '' }; // URL for your experiment template page
@@ -172,8 +168,6 @@ Experiment Dashboard is designed to work across 3 pages:
 
 				// Set up the dashboard params
 				var params = { sheet_id             : '', // Unique id of your Google spreadsheet
-				               experiment_sheet_pos : '', // Integer representing the position of your Experiments sub sheet
-				               idea_sheet_pos       : '', // Integer representing the position of your Ideas sub sheet
 				               dashboard_page_url   : '', // URL for your dashboard page
 				               experiment_page_url  : '', // URL for your experiment template page
 				               idea_page_url        : '' }; // URL for your experiment template page
@@ -202,3 +196,42 @@ Experiment Dashboard is designed to work across 3 pages:
 </html>
 
 ```
+
+### Optional Parameters
+
+####idea_sheet_pos
+
+Optional parameter to change the subsheet position of the Ideas sub sheet. Default is '3'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet 
+
+#####Example
+
+```javascript
+
+var params = { sheet_id             : '11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI',   
+			   idea_sheet_pos       : '7', // Default is '3'
+               dashboard_page_url   : 'dashboard.html',
+               experiment_page_url  : 'experiment.html',
+		       idea_page_url        : 'idea.html' };
+
+var dashboard = new $.exDashboard(params);
+
+```
+
+####experiment_sheet_pos
+
+Optional parameter to change the subsheet position of the Ideas sub sheet. Default is '3'. The [sample spreadsheet](https://docs.google.com/spreadsheets/d/11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI) contains a hidden and locked subsheet 
+
+#####Example
+
+```javascript
+
+var params = { sheet_id             : '11dvwPQYjgzmSATMDpJi2c0il6rib-XDaZz-0dR--SHI',   
+			   experiment_sheet_pos : '8', // Default is '4'
+               dashboard_page_url   : 'dashboard.html',
+               experiment_page_url  : 'experiment.html',
+		       idea_page_url        : 'idea.html' };
+
+var dashboard = new $.exDashboard(params);
+
+```
+
