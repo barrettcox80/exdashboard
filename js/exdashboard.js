@@ -792,12 +792,17 @@
 						/*-- Create a link to the experiment folder --*/
 						//folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+this.gsx$folder.$t+'</a>';
 
+
+
 						entryVars = {
 							ideaname: this.gsx$ideaname.$t,
 							coverimage: this.gsx$coverimage.$t,
 						    created: this.gsx$created.$t,
-						    desiredoutcome: thisExDashboard.insertBreaks(this.gsx$desiredoutcome.$t, false)
+						    desiredoutcome: thisExDashboard.insertBreaks(this.gsx$desiredoutcome.$t, false),
+						    hmw: this.gsx$hmw.$t
 						};
+
+						console.log(entryVars.hmw);
 					} 
 
 				}); /*-- $.each --*/

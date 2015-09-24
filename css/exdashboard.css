@@ -83,8 +83,9 @@ body {
 }
 .ed-table-dashboard tr > td.ed-idea,
 .ed-table-dashboard .ed-experiment {
-  height : 121px;
-  padding-bottom: 15px; /* Room for the scroll bar */
+  height : 136px;
+  /*height : 121px;*/
+  /*padding-bottom: 15px;*/ /* Room for the scroll bar */
 }
 .ed-table-dashboard .ed-cell-container {
   height : 100%;
@@ -95,6 +96,7 @@ body {
 }
 .ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
   width : 315px;
+  padding-bottom: 15px;
 }
 .ed-table-dashboard .ed-experiment {
   width : 210px;
@@ -110,7 +112,7 @@ body {
 .ed-table-dashboard tr > th:first-child,
 .ed-table-dashboard tr > td.ed-idea > a {
   width : 234px;
-  height : 120px;
+  height : 136px;
 }
 .ed-table-dashboard tr > th,
 .ed-table-dashboard tr > th:first-child {
@@ -178,18 +180,18 @@ body {
   transition: border-color 500ms ease-out 0s, color 500ms ease-out 0s;
 }
 .ed-table-dashboard tr > td.ed-td-idea-full > a:after {
-  border : 60px solid transparent;
+  border : 68px solid transparent;
   border-left  : 40px solid #b9e5fb;
   border-right : none;
 }
 .ed-table-dashboard tr > td.ed-td-idea-empty > a:after {
-  border : 60px solid transparent;
+  border : 68px solid transparent;
   border-left  : 40px solid #e2f4fd;
   border-right : none;
 }
 .ed-table-dashboard tr > td.ed-td-idea-full > a:hover:after,
 .ed-table-dashboard tr > td.ed-td-idea-empty > a:hover:after {
-  border : 60px solid transparent;
+  border : 68px solid transparent;
   border-left  : 40px solid #333;
   border-right : none;
 }
