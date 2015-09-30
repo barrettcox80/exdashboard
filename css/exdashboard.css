@@ -28,6 +28,7 @@ body {
   font-family : 'Roboto', sans-serif;
 }
 .ed-table-dashboard {
+  table-layout: fixed;
   /*display: block;*/
   /*border-spacing: 10px;*/
   border-collapse: separate;
@@ -56,6 +57,7 @@ body {
 }
 .ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
   /*width : 2000px;*/
+  width : 100%;
   overflow-x : auto;
   overflow-y : hidden;
   direction : rtl; /* Right-to-left so that default view is scrolled all the way to the right */
@@ -79,7 +81,8 @@ body {
     1.2 - Cell dimensions
 --------------------------------*/
 .ed-table-dashboard {
-  width : 549px;
+  /*width : 549px;*/
+  width: 100%;
 }
 .ed-table-dashboard tr > td.ed-idea,
 .ed-table-dashboard .ed-experiment {
@@ -91,11 +94,16 @@ body {
   height : 100%;
   overflow : hidden;
 }
+.ed-table-dashboard tr > th:first-child,
+.ed-table-dashboard tr > td.ed-idea {
+  width : 40%;
+}
 .ed-table-dashboard tr > td.ed-experiments-cell {
+  /*width : 60%;*/
   height : 100%;
 }
 .ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
-  width : 315px;
+  /*width : 315px;*/
   padding-bottom: 15px;
 }
 .ed-table-dashboard .ed-experiment {
@@ -109,9 +117,7 @@ body {
   width : 100%;
   height : 100%;
 }
-.ed-table-dashboard tr > th:first-child,
 .ed-table-dashboard tr > td.ed-idea > a {
-  width : 234px;
   height : 136px;
 }
 .ed-table-dashboard tr > th,
@@ -613,10 +619,10 @@ a#ed-dashboard-feedback:hover:after {
       3.2 - Cell dimensions
   --------------------------------*/
   .ed-table-dashboard {
-    width : 909px;
+    /*width : 909px;*/
   }
   .ed-table-dashboard tr > td.ed-experiments-cell > .ed-experiments-cell-container {
-    width : 517px;
+    /*width : 517px;*/
   }
   .ed-table-dashboard .ed-experiment {
     width : 345px;
@@ -625,7 +631,7 @@ a#ed-dashboard-feedback:hover:after {
   .ed-table-dashboard tr > th:first-child,
   .ed-table-dashboard tr > td.ed-td-idea-full > a,
   .ed-table-dashboard tr > td.ed-td-idea-empty > a {
-    width : 330px;
+    /*width : 330px;*/
     height : 210px;
   }
   .ed-table-dashboard tr > th,
@@ -749,8 +755,19 @@ a#ed-dashboard-feedback:hover:after {
     /*margin-left : -15px;*/ /*-- Same as -(border-spacing) --*/
   }
   /*- End - 4.1 ------------------*/
-  
-  
+
+  /*--------------------------------
+      4.2 - Cell Dimensions
+  --------------------------------*/
+  .ed-table-dashboard tr > th:first-child,
+  .ed-table-dashboard tr > td.ed-idea {
+    width : 28.57142857142858%;
+  }
+  .ed-table-dashboard tr > td.ed-experiments-cell {
+    /*width : 71.42857142857145%;*/
+  }
+  /*- End - 4.2 ------------------*/
+
   /*--------------------------------
       4.7 - Fonts
   --------------------------------*/
