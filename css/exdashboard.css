@@ -563,9 +563,9 @@ a#ed-dashboard-feedback:hover:after {
 }
 .ed-header .ed-header-image {
   clear: both;
-  height: 360px;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
+}
+.ed-header .ed-header-image img {
+  width: 100%;
 }
 /*- End - 1.15 -----------------*/
 

@@ -31,16 +31,13 @@
 			<li><a href="{{dashboardurl}}">back to Dashboard</a></li>
 			<li><a href="{{viewsheeturl}}" target="_blank">view/update spreadsheet</a></li>
 		</ul>
-		<div class="ed-header-image" style="background-image: url({{coverimage}}); display: {{display}};"></div>
+		<div class="ed-header-image"><img src="{{coverimage}}" style="display: {{display}};"></div>
 	</div>
 </script>
 
 <script id="ideaMainContent" type="text/template">
 	<div class="ed-main-content">
-		<h1>{{hmw}}</h1>
-
-		<h3>Idea</h3>
-		<p>{{idea}}</p>
+		<p class="intro">{{hmw}}</p>
 
 		<h3>Desired Outcome</h3>
 		<p>{{{desiredoutcome}}}</p>
@@ -49,6 +46,9 @@
 			<h3>Insights</h3>
 			<p>{{{insights}}}</p> <!-- Triple curly braces to output HTML -->
 		</div>
+
+		<h3>Selected Idea</h3>
+		<p>{{selectedidea}}</p> 
 	</div>
 </script>
 
@@ -58,6 +58,10 @@
 			<th scope="row">Created Date</th>
 			<td>{{created}}</td>
 		</tr>
+		<tr>
+			<th scope="row">Folder</th>
+			<td>{{{folderlink}}}</td>
+		</tr>
 	</table>
 </script>
 
@@ -65,15 +69,18 @@
 
 	<div class="ed-main-content">
 
-		<h1>{{tweetableheadline}}</h1>
+		<p class="intro">{{tweetableheadline}}</p>
 
 		<h3>Design</h3>
 		<p>{{{design}}}</p> <!-- Triple curly braces to output HTML -->
 
 		<div class="insights-container">
-			<h3>Insights</h3>
-			<p>{{{insights}}}</p> <!-- Triple curly braces to output HTML -->
+			<h3>Learnings</h3>
+			<p>{{{learnings}}}</p> <!-- Triple curly braces to output HTML -->
 		</div>
+
+		<h3>Decisions</h3>
+		<p>{{{decisions}}}</p> <!-- Triple curly braces to output HTML -->
 
 	</div>
 
@@ -94,7 +101,7 @@
 			<td>{{{documents}}}</td> <!-- Triple curly braces to output HTML -->
 		</tr>
 		<tr>
-			<th scope="row">Blog Posts</th>
+			<th scope="row">Posts</th>
 			<td>{{{posts}}}</td> <!-- Triple curly braces to output HTML -->
 		</tr>
 		<tr>

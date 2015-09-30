@@ -85,9 +85,9 @@
 						    emptyclass: 'ed-td-idea-empty', // Default to empty
 						    lastexperimentdate: '',
 						    detailpageurl: thisExDashboard.ideaPageUrl,
-						    insights: this.gsx$insights.$t,
 						    hmw: HMW,
-						    selectedidea: this.gsx$selectedidea.$t
+						    selectedidea: this.gsx$selectedidea.$t,
+						    insights: this.gsx$insights.$t
 						};
 
 						// Push onto ideas[] array
@@ -171,7 +171,10 @@
 						    helpclass : helpClass,
 						    detailpageurl: thisExDashboard.experimentPageUrl,
 						    success: this.gsx$success.$t,
-						    calendarid: this.gsx$calendarid.$t
+						    calendarid: this.gsx$calendarid.$t,
+						    learnings: this.gsx$learnings.$t,
+						    decisions: this.gsx$decisions.$t
+
 						};
 
 						// Add experiemnt to the experiments array
@@ -659,7 +662,9 @@
 						entryVars = {
 						    tweetableheadline: this.gsx$tweetableheadline.$t,
 						    design: thisExDashboard.insertBreaks(this.gsx$design.$t, false),
-						    insights: thisExDashboard.insertBreaks(this.gsx$insights.$t, false)
+						    learnings: thisExDashboard.insertBreaks(this.gsx$learnings.$t, false),
+						    success: thisExDashboard.insertBreaks(this.gsx$success.$t, false),
+						    decisions: thisExDashboard.insertBreaks(this.gsx$decisions.$t, false)
 						};
 
 					} 
@@ -685,8 +690,8 @@
 
 			$.getJSON( thisExDashboard.experimentsUrl, function( data ) {
 				
-				var entryVars       = {};
-				var utmParam = thisExDashboard.getUrlVars()['ex'];
+				var entryVars = {};
+				var utmParam  = thisExDashboard.getUrlVars()['ex'];
 
 				$.each( data.feed.entry, function() {
 
@@ -712,7 +717,8 @@
 						    documents: documentList,
 						    posts: blogList,
 						    team: this.gsx$team.$t,
-						    contact: this.gsx$contact.$t
+						    contact: this.gsx$contact.$t,
+						    helpneeded: this.gsx$helpneeded.$t
 						};
 
 					} 
@@ -792,17 +798,15 @@
 						/*-- Create a link to the experiment folder --*/
 						//folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+this.gsx$folder.$t+'</a>';
 
-
-
 						entryVars = {
 							ideaname: this.gsx$ideaname.$t,
 							coverimage: this.gsx$coverimage.$t,
 						    created: this.gsx$created.$t,
 						    desiredoutcome: thisExDashboard.insertBreaks(this.gsx$desiredoutcome.$t, false),
-						    hmw: this.gsx$hmw.$t
+						    hmw: thisExDashboard.insertBreaks(this.gsx$hmw.$t, false),
+						    insights: thisExDashboard.insertBreaks(this.gsx$insights.$t, false),
+						    selectedidea: this.gsx$selectedidea.$t
 						};
-
-						console.log(entryVars.hmw);
 					} 
 
 				}); /*-- $.each --*/
@@ -833,14 +837,16 @@
 					   If the utm param matches the experiment name string
 					--------------------------------------------------------*/
 					if ( thisExDashboard.paramString(this.gsx$ideaname.$t) == utmParam ) {
-						
-						//var folderLink = '';
 
-						/*-- Create a link to the codename folder --*/
-						//folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+this.gsx$folder.$t+'</a>';
+						var folderLink = '';
+						
+						if (this.gsx$folder.$t != '') {
+							folderLink = '<a href="'+this.gsx$folder.$t+'" target="_blank">'+'View'+'</a>';
+						}
 
 						entryVars = {
-						    created: this.gsx$created.$t
+						    created: this.gsx$created.$t,
+						    folderlink: folderLink
 						};
 
 					} 
@@ -914,7 +920,7 @@
 
 				sheetUrl = thisExDashboard.experimentsUrl;
 				utmParam = thisExDashboard.getUrlVars()['ex'];
-				categoryTitle = "Experiment";
+				categoryTitle = "Test";
 
 				$.getJSON( sheetUrl, function( data ) {
 
